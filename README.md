@@ -16,6 +16,12 @@ qse -v
 qse --version
 ```
 
+### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/2dc11693-d0e0-4900-a5fb-876c87806570" width="800px"/>
+</div>
+
 ## List
 
 List all available commands and options.
@@ -23,6 +29,12 @@ List all available commands and options.
 ```bash
 qse list
 ```
+
+### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/c4c839f4-761a-479c-8b1f-4ca53eab3458" width="800px"/>
+</div>
 
 ## Init
 
@@ -62,7 +74,7 @@ qse clear
     npm i -g @cse-25/qse
 ```
 
-2. Run any qse commands in the target directory such as `qse init`, `qse clear`, `qse -v` ... etc. 
+2. Run any qse commands in the target directory such as `qse init`, `qse clear`, `qse -v` ... etc.
 
 # Contributing
 
@@ -101,7 +113,7 @@ Follow the guidelines in [CONTRIBUTING.md](https://github.com/CSE-25/quick_start
    npm link qse # in the target directory
    ```
 
-2. Run any qse commands in the target directory such as `qse init`, `qse clear`, `qse -v` ... etc. 
+2. Run any qse commands in the target directory such as `qse init`, `qse clear`, `qse -v` ... etc.
 
 ## Developers
 
