@@ -109,26 +109,26 @@ Follow the guidelines in [CONTRIBUTING.md](https://github.com/CSE-25/quick_start
 
 To test the CLI tool locally, you need to link the package. Use a separate testing directory to avoid modifying files in the main quick_start_express directory.
 
-1. Link the Package in the Main Directory: In the quick_start_express directory, run:
+1. **Link the Package in the Main Directory**: In the quick_start_express directory, run:
 
    ```bash
    npm link
    ```
 
-2. Create a Testing Directory: Outside the quick_start_express directory, create a testing directory:
+2. **Create a Testing Directory: Outside the quick_start_express directory, create a testing directory**:
 
    ```bash
    mkdir ../qse-test
    cd ../qse-test
    ```
 
-3. Link qse in the Testing Directory: In the testing directory, run:
+3. **Link qse in the Testing Directory: In the testing directory, run**:
 
    ```bash
    npm link qse
    ```
    
-4. Run qse Commands: Now, you can execute any qse commands in the testing directory, such as:
+4. **Run qse Commands: Now, you can execute any qse commands in the testing directory, such as**:
 
    ```bash
    qse init
