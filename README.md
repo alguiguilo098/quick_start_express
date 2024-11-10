@@ -115,11 +115,11 @@ To test the CLI tool locally, you need to link the package. Use a separate testi
    npm link
    ```
 
-2. **Create a Testing Directory**: Outside the quick_start_express directory, create a testing directory:
+2. **Create a Testing Directory**: In the quick_start_express root directory, create a qse-test directory:
 
    ```bash
-   mkdir ../qse-test
-   cd ../qse-test
+   mkdir qse-test
+   cd qse-test
    ```
 
 3. **Link qse in the Testing Directory**: In the testing directory, run:
