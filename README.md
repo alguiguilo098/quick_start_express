@@ -107,7 +107,7 @@ Follow the guidelines in [CONTRIBUTING.md](https://github.com/CSE-25/quick_start
 
 ### Run the package.
 
-To test the CLI tool locally, you need to link the package. Use a separate testing directory to avoid modifying files in the main quick_start_express directory.
+To test the CLI tool locally, you need to link the package. Use a separate testing directory to avoid modifying files in the root directory of `quick_start_express`.
 
 1. **Link the Package in the Main Directory**: In the quick_start_express directory, run:
 
