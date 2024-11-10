@@ -137,7 +137,7 @@ To test the CLI tool locally, you need to link the package. Use a separate testi
    ```
 
 > [!Note] 
-> Running npm link qse in the main directory may modify `package.json`. Always use a separate testing directory to avoid this.
+> Running `npm link qse` in the root directory may modify `package.json`. Always use a separate testing directory to avoid this.
 
 **Clean-Up**: After testing, you may delete the testing directory if it’s no longer needed.
 
