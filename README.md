@@ -107,17 +107,39 @@ Follow the guidelines in [CONTRIBUTING.md](https://github.com/CSE-25/quick_start
 
 ### Run the package.
 
-1. Run the following command in the terminal to start the package:
+To test the CLI tool locally, you need to link the package. Use a separate testing directory to avoid modifying files in the root directory of `quick_start_express`.
+
+1. **Link the Package in the Main Directory**: In the `quick_start_express` root directory, run:
 
    ```bash
-   npm link # in the quick_start_express directory
+   npm link
    ```
+
+2. **Create a Testing Directory**: In the `quick_start_express` root directory, create a `qse-test` directory:
 
    ```bash
-   npm link qse # in the target directory
+   mkdir qse-test
+   cd qse-test
    ```
 
-2. Run any qse commands in the target directory such as `qse init`, `qse clear`, `qse -v` ... etc.
+3. **Link `qse` in the Testing Directory**: In the testing directory, run:
+
+   ```bash
+   npm link qse
+   ```
+   
+4. **Run `qse` Commands**: Now, you can execute any `qse` commands in the testing directory, such as:
+
+   ```bash
+   qse init
+   qse clear
+   qse -v
+   ```
+
+> [!Note] 
+> Running `npm link qse` in the root directory may modify `package.json`. Always use a separate testing directory to avoid this.
+
+**Clean-Up**: After testing, you may delete the testing directory if it’s no longer needed.
 
 ## Developers
 
