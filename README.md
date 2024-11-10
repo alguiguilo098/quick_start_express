@@ -128,7 +128,7 @@ To test the CLI tool locally, you need to link the package. Use a separate testi
    npm link qse
    ```
    
-4. **Run qse Commands**: Now, you can execute any qse commands in the testing directory, such as:
+4. **Run `qse` Commands**: Now, you can execute any `qse` commands in the testing directory, such as:
 
    ```bash
    qse init
