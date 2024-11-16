@@ -141,6 +141,13 @@ To test the CLI tool locally, you need to link the package. Use a separate testi
 
 **Clean-Up**: After testing, you may delete the testing directory if it’s no longer needed.
 
+## Running Tests
+
+To execute the tests, navigate to the root directory of the `quick_start_express` project where all dependencies are installed, and run the following command:
+
+```bash
+npm test
+```
 ## Developers
 
 - [Abhinav Ramakrishnan](https://github.com/Abhinav-ark)
