@@ -147,7 +147,7 @@ To execute the tests, navigate to the root directory of the `quick_start_express
 
 ```bash
 npm test
-
+```
 ## Developers
 
 - [Abhinav Ramakrishnan](https://github.com/Abhinav-ark)
