@@ -75,7 +75,7 @@ qse clear
 1. Run the following command in the terminal to install the required `node` packages:
 
 ```bash
-   npm i -g quick_start_express
+npm i -g quick_start_express
 ```
 
 2. Run any qse commands in the target directory such as `qse init`, `qse clear`, `qse -v` ... etc.
