@@ -77,8 +77,8 @@ program
       console.error(error);
     }
   });
-
-function initCommand(options) {
+//Changing sync to async to optimize further
+async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
 
   if (!templates[selectedTemplate]) {
@@ -108,7 +108,9 @@ function initCommand(options) {
 
   const copySpinner = createSpinner("Creating server files...").start();
   try {
-    fs.copySync(templatePath, destinationPath);
+    await fs.copy(templatePath, targetDir, {
+      filter: (src) => !src.includes("node_modules"), // Skiping node_modules to optimize
+    });
 
     copySpinner.success({ text: "Created server files successfully." });
   } catch (err) {
@@ -133,7 +135,7 @@ function initCommand(options) {
   const addDependencies = createSpinner("Adding dependency packages...").start();
   try {
     const packageJsonPath = path.join(targetDir, "package.json");
-    const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
+    const packageJsonContent = await fs.readJSON(packageJsonPath, "utf8");
     const packageJson = JSON.parse(packageJsonContent);
     packageJson.dependencies = packageJson.dependencies || {};
     
