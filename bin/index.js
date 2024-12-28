@@ -108,9 +108,7 @@ async function initCommand(options) {
 
   const copySpinner = createSpinner("Creating server files...").start();
   try {
-    await fs.copy(templatePath, targetDir, {
-      filter: (src) => !src.includes("node_modules"), // Skiping node_modules to optimize
-    });
+    await fs.copy(templatePath, destinationPath);
 
     copySpinner.success({ text: "Created server files successfully." });
   } catch (err) {
