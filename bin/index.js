@@ -77,7 +77,7 @@ program
       console.error(error);
     }
   });
-//Changing sync to async to optimize further
+
 async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
 
