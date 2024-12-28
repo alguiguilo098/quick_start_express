@@ -71,15 +71,9 @@ describe('init', () => {
 
     test('no templates passed, should default to basic', async () => {
         
-        console.time('Hash Calculation');
         const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'basic'));
-        console.timeEnd('Hash Calculation');
-        console.time('Command Execution');
         await exec(`node ../../bin/index.js init`, { cwd: tempDir });
-        console.timeEnd('Command Execution');
-        console.time('Hash Verification');
         const commandHash = computeSHA256Hash(tempDir);
-        console.timeEnd('Hash Verification');
         expect(commandHash).toEqual(originalHash);
     })
 
