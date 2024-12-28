@@ -59,10 +59,6 @@ function computeSHA256Hash(dirName) {
 
     return hash.digest('hex');
 }
-// Precomputed hashes
-const BASIC_TEMPLATE_HASH = '0b54214731f56e8f661a943b8612b2adadc1a7739cd6d055fd3f88bba5657c16';
-const EXPRESS_PG_SEQUELIZE_TEMPLATE_HASH = '13bd37f300eb11bc7c63012b3c9635d6adcaecff46ded44997f947fd4adf3afb';
-const EXPRESS_MYSQL_TEMPLATE_HASH = '689d3c2957c6efcb17a0dffcc61447bbd92c27d3f9f3b0233c744f9659893534';
 
 describe('init', () => {
     beforeEach(() => {
@@ -88,21 +84,24 @@ describe('init', () => {
     })
 
     test('basic', async () => {
+        const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'basic'));
         await exec(`node ../../bin/index.js init -t basic`, { cwd: tempDir });
         const commandHash = computeSHA256Hash(tempDir);
-        expect(commandHash).toEqual(BASIC_TEMPLATE_HASH);
+        expect(commandHash).toEqual(originalHash);
     });
 
     test('express_pg_sequelize', async () => {
+        const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'express_pg_sequelize'));
         await exec(`node ../../bin/index.js init -t express_pg_sequelize`, { cwd: tempDir });
         const commandHash = computeSHA256Hash(tempDir);
-        expect(commandHash).toEqual(EXPRESS_PG_SEQUELIZE_TEMPLATE_HASH);
+        expect(commandHash).toEqual(originalHash);
     }, 10000);
 
     test('express_mysql', async () => {
+        const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'express_mysql'));
         await exec(`node ../../bin/index.js init -t express_mysql`, { cwd: tempDir });
         const commandHash = computeSHA256Hash(tempDir);
-        expect(commandHash).toEqual(EXPRESS_MYSQL_TEMPLATE_HASH);
+        expect(commandHash).toEqual(originalHash);
     }, 10000);
 
     test('invalid template name passed', async () => {
