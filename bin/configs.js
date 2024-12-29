@@ -92,4 +92,29 @@ export const templates = {
       },
     ],
   },
+  express_oauth_microsoft: {
+    name: "express_oauth_microsoft",
+    dependencies: [
+      {
+        name: "express",
+        version: "^4.21.2",
+      },
+      {
+        name: "passport",
+        version: "^0.7.0",
+      },
+      {
+        name: "passport-microsoft",
+        version: "^2.1.0",
+      },
+      {
+        name: "jsonwebtoken",
+        version: "^9.0.2",
+      },
+      {
+        name: "dotenv",
+        version: "^16.4.7",
+      },
+    ],
+  },
 };

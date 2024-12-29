@@ -11,7 +11,8 @@ const list = `Available Commands:
 Available Templates:
 - basic
 - express_pg_sequelize
-- express_mysql\n`
+- express_mysql
+- express_oauth_microsoft\n`
 
 describe('List Command', () => {
     test('list', async () => {

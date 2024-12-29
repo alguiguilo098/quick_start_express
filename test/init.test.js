@@ -59,7 +59,7 @@ function computeSHA256Hash(dirName) {
 describe('init', () => {
     beforeEach(() => {
         initTempDirectory();
-    });    
+    });
 
     afterAll(() => {
         clearTempDirectory();
@@ -89,6 +89,13 @@ describe('init', () => {
     test('express_mysql', async () => {
         const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'express_mysql'));
         await exec(`node ../../bin/index.js init -t express_mysql`, { cwd: tempDir });
+        const commandHash = computeSHA256Hash(tempDir);
+        expect(commandHash).toEqual(originalHash);
+    }, 10000);
+
+    test('express_oauth_microsoft', async () => {
+        const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'express_oauth_microsoft'));
+        await exec(`node ../../bin/index.js init -t express_oauth_microsoft`, { cwd: tempDir });
         const commandHash = computeSHA256Hash(tempDir);
         expect(commandHash).toEqual(originalHash);
     }, 10000);
