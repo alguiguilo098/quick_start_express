@@ -1,5 +1,5 @@
-import 'dotenv/config'
-configDotenv({ path: "./templates/express_microsoft_oauth/.env" })
+import { configDotenv } from 'dotenv'
+configDotenv({ path: "./templates/express_oauth_microsoft/.env" })
 
 import express from 'express'
 import passport from 'passport'
@@ -8,10 +8,13 @@ import jwt from 'jsonwebtoken'
 
 import { loginRouter } from './router/loginRouter.js'
 import { userRouter } from './router/userRouter.js'
-import { configDotenv } from 'dotenv'
+
+// For testing
+// console.log(process.env.MICROSOFT_CLIENT_ID);
+// console.log(process.env.MICROSOFT_CLIENT_SECRET);
 
 passport.use(new MicrosoftStrategy({
-    callbackURL: `http://localhost:3000/auth/microsoft/redirect`,
+    callbackURL: process.env.MICROSOFT_CALLBACK_URL || `http://localhost:3000/auth/microsoft/redirect`,
     clientID: process.env.MICROSOFT_CLIENT_ID,
     clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
     scope: ['openid', 'profile', 'email'],
@@ -33,6 +36,7 @@ passport.use(new MicrosoftStrategy({
 const app = express()
 
 app.use(passport.initialize())
+
 app.use('/auth/microsoft', loginRouter)
 app.use('/', userRouter)
 
