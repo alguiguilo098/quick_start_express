@@ -1,5 +1,6 @@
-// import { configDotenv } from 'dotenv'
+import { configDotenv } from 'dotenv'
 // configDotenv({ path: "./templates/express_oauth_microsoft/.env" }) // Use when testing the tool
+configDotenv({ path: "./.env" }) // use when testing the template
 
 import express from 'express'
 import passport from 'passport'
@@ -18,7 +19,7 @@ passport.use(new MicrosoftStrategy({
     clientID: process.env.MICROSOFT_CLIENT_ID,
     clientSecret: process.env.MICROSOFT_CLIENT_SECRET,
     scope: ['openid', 'profile', 'email'],
-    // tenant: process.env.MICROSOFT_TENANT_ID // for development
+    tenant: process.env.MICROSOFT_TENANT_ID
 },
     async (accessToken, refreshToken, profile, done) => {
         try {
