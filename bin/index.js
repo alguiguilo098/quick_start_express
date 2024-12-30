@@ -78,7 +78,7 @@ program
     }
   });
 
-function initCommand(options) {
+async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
 
   if (!templates[selectedTemplate]) {
@@ -108,7 +108,7 @@ function initCommand(options) {
 
   const copySpinner = createSpinner("Creating server files...").start();
   try {
-    fs.copySync(templatePath, destinationPath);
+    await fs.copy(templatePath, destinationPath);
 
     copySpinner.success({ text: "Created server files successfully." });
   } catch (err) {
@@ -133,7 +133,7 @@ function initCommand(options) {
   const addDependencies = createSpinner("Adding dependency packages...").start();
   try {
     const packageJsonPath = path.join(targetDir, "package.json");
-    const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
+    const packageJsonContent = await fs.readJSON(packageJsonPath, "utf8");
     const packageJson = JSON.parse(packageJsonContent);
     packageJson.dependencies = packageJson.dependencies || {};
     
