@@ -1,5 +1,5 @@
-import { configDotenv } from 'dotenv'
-configDotenv({ path: "./templates/express_oauth_microsoft/.env" })
+// import { configDotenv } from 'dotenv'
+// configDotenv({ path: "./templates/express_oauth_microsoft/.env" }) // Use when testing the tool
 
 import express from 'express'
 import passport from 'passport'
