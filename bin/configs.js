@@ -46,29 +46,7 @@ export const templates = {
   express_mysql: {
     name: "express_mysql",
   },
-  express_prisma: {
-    name: "express_prisma",
-    dependencies: [
-      {
-        name: "express",
-        version: "^4.17.1",
-      },
-      {
-        name: "@prisma/client",
-        version: "^6.1.0",
-      },
-      {
-        name: "nodemon",
-        version: "^3.1.9",
-      },
-      {
-        name: "@types/node",
-        version: "^22.10.2"
-      },
-      {
-        name: "dotenv",
-        version: "^16.4.7"
-      }
-    ],
+  express_pg_prisma: {
+    name: "express_pg_prisma",
   }
 };
