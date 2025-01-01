@@ -1,15 +1,17 @@
 import { configDotenv } from 'dotenv'
-// configDotenv({ path: "./templates/express_oauth_microsoft/.env" }) // Use when testing the tool
-configDotenv({ path: "./.env" }) // use when testing the template
+configDotenv({ path: "./templates/express_oauth_microsoft/.env" }) // Use when testing the tool
+// configDotenv({ path: "./.env" }) // use when testing the template
 
 import express from 'express'
 import passport from 'passport'
 import { Strategy as MicrosoftStrategy } from 'passport-microsoft'
 import jwt from 'jsonwebtoken'
 import cookieParser from 'cookie-parser'
+import { appendFileSync } from 'fs';
 
-import { authRouter } from './router/auth.js'
-import { appRouter } from './router/app.js'
+import { authRouter } from './router/authRouter.js'
+import { appRouter } from './router/appRouter.js'
+import { initLog } from './logs/logsInit.js'
 
 // for testing
 // console.log(process.env.MICROSOFT_CLIENT_ID)
@@ -41,9 +43,18 @@ const app = express()
 app.use(passport.initialize())
 app.use(cookieParser())
 
+initLog()
+
 app.use('/', appRouter)
 app.use('/auth', authRouter)
 
-app.listen(3000, () => {
-    console.log('Serving on port 3000')
+app.listen(3000, (err) => {
+    if (err) {
+        const timeStamp = new Date().toLocaleString();
+        const errMessage = `[ERROR]: ${timeStamp} - ${err.message}`
+        console.error(errMessage);
+        appendFileSync('./logs/index.log', `${errMessage}\n`);
+    } else {
+        console.info(`[INFO]: Server is running on http://localhost:3000`);
+    }
 })
