@@ -6,14 +6,16 @@ import express from 'express'
 import passport from 'passport'
 import { Strategy as MicrosoftStrategy } from 'passport-microsoft'
 import jwt from 'jsonwebtoken'
+import cookieParser from 'cookie-parser'
 
-import { loginRouter } from './router/loginRouter.js'
-import { userRouter } from './router/userRouter.js'
+import { authRouter } from './router/auth.js'
+import { appRouter } from './router/app.js'
 
-// For testing
-// console.log(process.env.MICROSOFT_CLIENT_ID);
-// console.log(process.env.MICROSOFT_CLIENT_SECRET);
+// for testing
+// console.log(process.env.MICROSOFT_CLIENT_ID)
+// console.log(process.env.MICROSOFT_CLIENT_SECRET)
 
+// microsoft auth middleware
 passport.use(new MicrosoftStrategy({
     callbackURL: process.env.MICROSOFT_CALLBACK_URL || `http://localhost:3000/auth/microsoft/redirect`,
     clientID: process.env.MICROSOFT_CLIENT_ID,
@@ -24,10 +26,10 @@ passport.use(new MicrosoftStrategy({
     async (accessToken, refreshToken, profile, done) => {
         try {
             const email = profile.emails?.[0]?.value || 'No email available'
-            const name = profile.displayName
+            const name = profile.displayName || 'No name available'
             const token = jwt.sign({ email, name }, process.env.JWT_SECRET, { expiresIn: '1h' }) // generating token
-            const redirect_url = `http://localhost:3000/${token}`  // fallback page
-            return done(null, redirect_url)
+            const redirect_url = `http://localhost:3000/user?token=${token}` // fallback page
+            return done(null, { email, name })
         } catch (error) {
             return done(error)
         }
@@ -37,10 +39,11 @@ passport.use(new MicrosoftStrategy({
 const app = express()
 
 app.use(passport.initialize())
+app.use(cookieParser())
 
-app.use('/auth/microsoft', loginRouter)
-app.use('/', userRouter)
+app.use('/', appRouter)
+app.use('/auth', authRouter)
 
 app.listen(3000, () => {
-    console.log('Serving on port 3000');
+    console.log('Serving on port 3000')
 })
