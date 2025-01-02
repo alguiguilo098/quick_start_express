@@ -29,7 +29,7 @@ passport.use(new MicrosoftStrategy({
         try {
             const email = profile.emails?.[0]?.value || 'No email available'
             const name = profile.displayName || 'No name available'
-            const token = jwt.sign({ email, name }, process.env.JWT_SECRET, { expiresIn: '1h' }) // generating token
+            // const token = jwt.sign({ email, name }, process.env.JWT_SECRET, { expiresIn: '1h' }) // generating token
             return done(null, { email, name })
         } catch (error) {
             return done(error)
