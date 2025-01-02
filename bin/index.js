@@ -25,6 +25,7 @@ program
   .description(commands.init.description)
   .option(commands.init.options[0].flags, commands.init.options[0].description)
   .option(commands.init.options[1].flags, commands.init.options[1].description)
+  .option(commands.init.options[2].flags, commands.init.options[2].description)
   .action((options) => {
     toolIntro();
     initCommand(options);
@@ -39,8 +40,7 @@ program
       const commandInfo = commands[cmd];
       if (commandInfo.command) {
         console.log(
-          `- ${commandInfo.command}${
-            commandInfo.description ? ": " + commandInfo.description : ""
+          `- ${commandInfo.command}${commandInfo.description ? ": " + commandInfo.description : ""
           }`
         );
       }
@@ -48,8 +48,7 @@ program
       if (commandInfo.options) {
         commandInfo.options.forEach((option) => {
           console.log(
-            `  (Options: ${option.flags}${
-              option.description ? " - " + option.description : ""
+            `  (Options: ${option.flags}${option.description ? " - " + option.description : ""
             })`
           );
         });
@@ -92,17 +91,18 @@ program
 async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
   const packageName = options.name || "quick-start-express-server"; // Default to 'quick-start-express-server' if no name is specified
+  const removeNodemon = options.removeNodemon
 
   if (packageName) {
     const validateResult = validate(packageName);
     if (validateResult.validForNewPackages === false) {
-        const errors = validateResult.errors || validateResult.warnings;
-        console.error(
+      const errors = validateResult.errors || validateResult.warnings;
+      console.error(
         chalk.red.bold(
-            `Invalid package name: ${errors.join(", ")}. Please provide a valid package name.`
+          `Invalid package name: ${errors.join(", ")}. Please provide a valid package name.`
         )
-        );
-        return;
+      );
+      return;
     }
   }
 
@@ -136,11 +136,29 @@ async function initCommand(options) {
     console.error(err.message);
   }
 
+  // if (removeNodemon) {
+  //   console.log(chalk.yellow("Removing Nodemon from dependencies..."));
+  //   try {
+  //     const packageJsonPath = path.join(targetDir, "package.json");
+  //     const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
+  //     const packageJson = JSON.parse(packageJsonContent);
+
+  //     // Remove Nodemon if it exists in dependencies
+  //     delete packageJson.devDependencies.nodemon;
+
+  //     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+  //     console.log(chalk.green("Nodemon removed from dependencies."));
+  //   } catch (err) {
+  //     console.error(chalk.red("Error removing Nodemon from dependencies."), err.message);
+  //   }
+  // }
+
   const addNameAndTypeSpinner = createSpinner(
     "Adding name and type declaration..."
   ).start();
   try {
     const packageJsonPath = path.join(targetDir, "package.json");
+    console.log(packageJsonPath);
     const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
     const packageJson = JSON.parse(packageJsonContent);
     packageJson.name = packageName; // Set custom package name

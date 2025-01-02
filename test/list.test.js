@@ -7,6 +7,7 @@ const list = `Available Commands:
 - init: Initialize a new Express server.
   (Options: -t, --template <template> - Specify template to use)
   (Options: -n, --name <name> - Specify the name of the package)
+  (Options: --remove-nodemon - Disable hot-reload support using nodemon)
 - list: List all available commands and options.
 - clear: Clear the directory.
 
