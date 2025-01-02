@@ -46,4 +46,7 @@ export const templates = {
   express_mysql: {
     name: "express_mysql",
   },
+  express_oauth_microsoft: {
+    name: "express_oauth_microsoft",
+  },
 };

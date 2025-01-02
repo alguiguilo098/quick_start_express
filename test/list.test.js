@@ -13,12 +13,13 @@ const list = `Available Commands:
 Available Templates:
 - basic
 - express_pg_sequelize
-- express_mysql\n`
+- express_mysql
+- express_oauth_microsoft\n`
 
 describe('List Command', () => {
-    test('list', async () => {
-        const { stdout, stderr } = await exec('node bin/index.js list');
-        expect(stdout).toEqual(list);
-        expect(stderr).toEqual('');
-    })
+  test('list', async () => {
+    const { stdout, stderr } = await exec('node bin/index.js list');
+    expect(stdout).toEqual(list);
+    expect(stderr).toEqual('');
+  })
 })
