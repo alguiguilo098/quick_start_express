@@ -48,5 +48,5 @@ export const templates = {
   },
   express_pg_prisma: {
     name: "express_pg_prisma",
-  }
+  },
 };

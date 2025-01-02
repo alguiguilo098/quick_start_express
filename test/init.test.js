@@ -72,14 +72,14 @@ function computeSHA256Hash(dirName) {
 describe('init', () => {
     beforeEach(() => {
         initTempDirectory();
-    });    
+    });
 
     afterAll(() => {
         clearTempDirectory();
     });
 
     test('no templates passed, should default to basic', async () => {
-        
+
         const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'basic'));
         await exec(`node ../../bin/index.js init`, { cwd: tempDir });
         const commandHash = computeSHA256Hash(tempDir);
@@ -103,6 +103,13 @@ describe('init', () => {
     test('express_mysql', async () => {
         const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'express_mysql'));
         await exec(`node ../../bin/index.js init -t express_mysql`, { cwd: tempDir });
+        const commandHash = computeSHA256Hash(tempDir);
+        expect(commandHash).toEqual(originalHash);
+    }, 10000);
+
+    test('express_pg_prisma', async () => {
+        const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'express_pg_prisma'));
+        await exec(`node ../../bin/index.js init -t express_pg_prisma`, { cwd: tempDir });
         const commandHash = computeSHA256Hash(tempDir);
         expect(commandHash).toEqual(originalHash);
     }, 10000);
