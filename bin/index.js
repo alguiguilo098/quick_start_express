@@ -131,34 +131,42 @@ async function initCommand(options) {
     await fs.copy(templatePath, destinationPath);
 
     copySpinner.success({ text: "Created server files successfully." });
+
+    if (removeNodemon) {
+      const nodemonSpinner = createSpinner("Removing nodemon...").start();
+      try {
+        const packageJsonPath = path.join(destinationPath, "package.json");
+        const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
+        const packageJson = JSON.parse(packageJsonContent);
+
+        if (packageJson.devDependencies && packageJson.devDependencies.nodemon) {
+          delete packageJson.devDependencies.nodemon;
+          if (!Object.keys(packageJson.devDependencies).length) {
+            delete packageJson.devDependencies;
+          }
+        }
+        if (packageJson.scripts && packageJson.scripts.dev) {
+          delete packageJson.scripts.dev;
+        }
+
+        fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
+
+        nodemonSpinner.success({ text: "Removed nodemon successfully." });
+      } catch (err) {
+        nodemonSpinner.error({ text: "Error removing nodemon.\n" });
+        console.error(err.message);
+      }
+    }
   } catch (err) {
     copySpinner.error({ text: "Error creating server files.\n" });
     console.error(err.message);
   }
-
-  // if (removeNodemon) {
-  //   console.log(chalk.yellow("Removing Nodemon from dependencies..."));
-  //   try {
-  //     const packageJsonPath = path.join(targetDir, "package.json");
-  //     const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
-  //     const packageJson = JSON.parse(packageJsonContent);
-
-  //     // Remove Nodemon if it exists in dependencies
-  //     delete packageJson.devDependencies.nodemon;
-
-  //     fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  //     console.log(chalk.green("Nodemon removed from dependencies."));
-  //   } catch (err) {
-  //     console.error(chalk.red("Error removing Nodemon from dependencies."), err.message);
-  //   }
-  // }
 
   const addNameAndTypeSpinner = createSpinner(
     "Adding name and type declaration..."
   ).start();
   try {
     const packageJsonPath = path.join(targetDir, "package.json");
-    console.log(packageJsonPath);
     const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
     const packageJson = JSON.parse(packageJsonContent);
     packageJson.name = packageName; // Set custom package name
@@ -189,6 +197,9 @@ async function initCommand(options) {
 
   console.log(chalk.green.bold("\nSetup complete! To run your server:"));
   console.log(chalk.yellow("Run:"), chalk.white.bold("npm start"));
+  if (!removeNodemon) {
+    console.log(chalk.yellow("Run with hot reloading:"), chalk.white.bold("npm run dev"));
+  }
 }
 
 const toolIntro = () => {
