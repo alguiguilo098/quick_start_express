@@ -38,7 +38,7 @@ qse list
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/c4c839f4-761a-479c-8b1f-4ca53eab3458" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/3a384836-df75-4db2-a3ff-044e2e102790" width="800px"/>
 </div>
 
 ## Init

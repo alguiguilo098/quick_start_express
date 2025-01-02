@@ -114,6 +114,13 @@ describe('init', () => {
         expect(commandHash).toEqual(originalHash);
     }, 10000);
 
+    test('express_oauth_microsoft', async () => {
+        const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'express_oauth_microsoft'));
+        await exec(`node ../../bin/index.js init -t express_oauth_microsoft`, { cwd: tempDir });
+        const commandHash = computeSHA256Hash(tempDir);
+        expect(commandHash).toEqual(originalHash);
+    }, 10000);
+
     test('invalid template name passed', async () => {
         const { stdout, stderr } = await exec(`node ../../bin/index.js init -t invalid_template`, { cwd: tempDir });
         expect(stripAnsi(stderr)).toContain(`Template invalid_template does not exist. To see available templates use "qse list".`);

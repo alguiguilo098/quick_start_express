@@ -49,4 +49,7 @@ export const templates = {
   express_pg_prisma: {
     name: "express_pg_prisma",
   },
+  express_oauth_microsoft: {
+    name: "express_oauth_microsoft",
+  },
 };

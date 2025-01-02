@@ -14,7 +14,7 @@ Available Templates:
 - basic
 - express_pg_sequelize
 - express_mysql
-- express_pg_prisma\n`
+- express_oauth_microsoft\n`
 
 describe('List Command', () => {
   test('list', async () => {
