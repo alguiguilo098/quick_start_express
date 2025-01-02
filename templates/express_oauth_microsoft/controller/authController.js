@@ -5,7 +5,7 @@ const checkLogin = (req, res) => {
     const token = req.cookies?.token
     if (token) {
         try {
-            const user = jwt.verify(token, process.env.JWT_SECRET)
+            jwt.verify(token, process.env.JWT_SECRET)
             return res.redirect('/')
         } catch(err) {
             errorHandlerFunc(err,'controller/authController',401,'Authentication failed')
