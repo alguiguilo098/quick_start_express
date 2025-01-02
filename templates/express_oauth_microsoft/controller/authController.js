@@ -7,8 +7,8 @@ const checkLogin = (req, res) => {
         try {
             jwt.verify(token, process.env.JWT_SECRET)
             return res.redirect('/')
-        } catch(err) {
-            errorHandlerFunc(err,'controller/authController',401,'Authentication failed')
+        } catch (err) {
+            errorHandlerFunc(err, 'controller/authController', 401, 'Authentication failed')
         }
     }
     return res.redirect('/auth/microsoft/redirect')
@@ -21,7 +21,7 @@ const handleAuth = (req, res) => {
         // res.cookie('token', token, { httpOnly: true, secure: true }) // use in production
         return res.redirect('/')
     } else {
-        errorHandlerFunc(err,'controller/authController',401,'Authentication failed')
+        errorHandlerFunc(err, 'controller/authController', 401, 'Authentication failed')
     }
 }
 

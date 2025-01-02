@@ -79,7 +79,6 @@ describe('init', () => {
     });
 
     test('no templates passed, should default to basic', async () => {
-        
         const originalHash = computeSHA256Hash(path.join(__dirname, '..', 'templates', 'basic'));
         await exec(`node ../../bin/index.js init`, { cwd: tempDir });
         const commandHash = computeSHA256Hash(tempDir);
