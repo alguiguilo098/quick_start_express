@@ -40,7 +40,8 @@ program
       const commandInfo = commands[cmd];
       if (commandInfo.command) {
         console.log(
-          `- ${commandInfo.command}${commandInfo.description ? ": " + commandInfo.description : ""
+          `- ${commandInfo.command}${
+            commandInfo.description ? ": " + commandInfo.description : ""
           }`
         );
       }
@@ -48,7 +49,8 @@ program
       if (commandInfo.options) {
         commandInfo.options.forEach((option) => {
           console.log(
-            `  (Options: ${option.flags}${option.description ? " - " + option.description : ""
+            `  (Options: ${option.flags}${
+              option.description ? " - " + option.description : ""
             })`
           );
         });
@@ -91,7 +93,7 @@ program
 async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
   const packageName = options.name || "quick-start-express-server"; // Default to 'quick-start-express-server' if no name is specified
-  const removeNodemon = options.removeNodemon
+  const removeNodemon = options.removeNodemon;
 
   if (packageName) {
     const validateResult = validate(packageName);
@@ -99,7 +101,9 @@ async function initCommand(options) {
       const errors = validateResult.errors || validateResult.warnings;
       console.error(
         chalk.red.bold(
-          `Invalid package name: ${errors.join(", ")}. Please provide a valid package name.`
+          `Invalid package name: ${errors.join(
+            ", "
+          )}. Please provide a valid package name.`
         )
       );
       return;
@@ -122,7 +126,11 @@ async function initCommand(options) {
   console.log("Starting server initialization...");
 
   const targetDir = process.cwd();
-  const templatePath = path.join(parentDir, "templates", templates[selectedTemplate].name);
+  const templatePath = path.join(
+    parentDir,
+    "templates",
+    templates[selectedTemplate].name
+  );
 
   const destinationPath = path.join(targetDir);
 
@@ -139,7 +147,10 @@ async function initCommand(options) {
         const packageJsonContent = fs.readFileSync(packageJsonPath, "utf8");
         const packageJson = JSON.parse(packageJsonContent);
 
-        if (packageJson.devDependencies && packageJson.devDependencies.nodemon) {
+        if (
+          packageJson.devDependencies &&
+          packageJson.devDependencies.nodemon
+        ) {
           delete packageJson.devDependencies.nodemon;
           if (!Object.keys(packageJson.devDependencies).length) {
             delete packageJson.devDependencies;
@@ -198,7 +209,10 @@ async function initCommand(options) {
   console.log(chalk.green.bold("\nSetup complete! To run your server:"));
   console.log(chalk.yellow("Run:"), chalk.white.bold("npm start"));
   if (!removeNodemon) {
-    console.log(chalk.yellow("Run with hot reloading:"), chalk.white.bold("npm run dev"));
+    console.log(
+      chalk.yellow("Run with hot reloading:"),
+      chalk.white.bold("npm run dev")
+    );
   }
 }
 
