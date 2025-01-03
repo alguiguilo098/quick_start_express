@@ -3,39 +3,39 @@ import { Request, Response } from 'express';
 
 const prisma = new PrismaClient();
 
-export const test = async (req: Request, res: Response) => {
-  res.status(200).json({ message: 'Working' });
+export const test = async (_, res: Response): Promise<any> => {
+  return res.status(200).json({ message: 'Working' });
 }
 
-export const createUser = async (req: Request, res: Response) => {
+export const createUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const { name, email } = req.body;
     const newUser = await prisma.user.create({
       data: { name, email },
     });
-    res.status(201).json(newUser);
+    return res.status(201).json(newUser);
   } catch (error) {
-    res.status(400).json({ error: error });
+    return res.status(400).json({ error: error });
   }
 };
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (_, res: Response): Promise<any> => {
   try {
     const users = await prisma.user.findMany();
-    res.status(200).json(users);
+    return res.status(200).json(users);
   } catch (error) {
-    res.status(500).json({ error: error });
+    return res.status(500).json({ error: error });
   }
 };
 
-export const deleteUser = async (req: Request, res: Response) => {
+export const deleteUser = async (req: Request, res: Response): Promise<any> => {
   try {
     const { id } = req.params;
     await prisma.user.delete({
       where: { id: parseInt(id) },
     });
-    res.status(204).send();
+    return res.status(204).send();
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete user' });
+    return res.status(500).json({ error: 'Failed to delete user' });
   }
 };
