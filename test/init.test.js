@@ -178,6 +178,19 @@ describe("init", () => {
     expect(hasNodemon()).toBe(true);
   }, 10000);
 
+  test("express_pg_prisma with nodemon", async () => {
+    const originalHash = computeSHA256Hash(
+      path.join(__dirname, "..", "templates", "express_pg_prisma")
+    );
+    await exec(`node ../../bin/index.js init -t express_pg_prisma`, {
+      cwd: tempDir,
+    });
+    const commandHash = computeSHA256Hash(tempDir);
+    expect(commandHash).toEqual(originalHash);
+
+    expect(hasNodemon()).toBe(true);
+  }, 10000);
+
   test("invalid template name passed", async () => {
     const { stdout, stderr } = await exec(
       `node ../../bin/index.js init -t invalid_template`,
@@ -294,6 +307,18 @@ describe("init", () => {
 
   test('express_oauth_microsoft without nodemon', async () => {
     await exec('node ../../bin/index.js init -t express_oauth_microsoft --remove-nodemon', { cwd: tempDir, });
+    const packageJson = readPackageJson();
+
+    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.dev).toBeUndefined();
+
+    if (packageJson.devDependencies) {
+      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+    }
+  }, 10000);
+
+  test('express_pg_prisma without nodemon', async () => {
+    await exec('node ../../bin/index.js init -t express_pg_prisma --remove-nodemon', { cwd: tempDir, });
     const packageJson = readPackageJson();
 
     expect(packageJson.scripts.start).not.toContain('nodemon');
