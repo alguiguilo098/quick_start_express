@@ -163,7 +163,19 @@ To execute the tests, navigate to the root directory of the `quick_start_express
 ```bash
 npm test
 ```
-## Developers
+## Core Contributors
 
 - [Abhinav Ramakrishnan](https://github.com/Abhinav-ark)
 - [Ashwin Narayanan S](https://ashrockzzz2003.github.io/portfolio)
+
+## Contributors
+
+- [Harish G M](https://github.com/GMHarish285)
+- [Kiran Rajeev](https://github.com/KiranRajeev-KV)
+- [Adripo](https://github.com/adripo)
+- [Akshay K S](https://github.com/akshayks13)
+- [K Venkatesh](https://github.com/venkatesh21bit)
+- [Phuong Thuy Nguyen](https://github.com/irisgranger)
+- [Abhinav Bansal](https://github.com/Abhinav-Bansal751)
+- [Guilherme Almeida Lopes](https://github.com/alguiguilo098)
+- [Nitansh Shankar](https://github.com/BIJJUDAMA)
