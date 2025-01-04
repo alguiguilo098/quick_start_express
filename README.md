@@ -55,7 +55,9 @@ qse init
    <img src="https://github.com/user-attachments/assets/84e2fc79-9b88-4817-baf4-56845d5ee756" width="800px"/>
 </div>
 
-<br>Initialize without nodemon.<br>
+
+Initialize without nodemon.
+
 
 ```bash
 qse init --remove-nodemon
