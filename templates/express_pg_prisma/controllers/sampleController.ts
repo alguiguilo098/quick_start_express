@@ -13,8 +13,10 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
     const newUser = await prisma.user.create({
       data: { name, email },
     });
+
     return res.status(201).json(newUser);
   } catch (error) {
+    console.error(`[ERROR] Create User: ${error}`);
     return res.status(400).json({ error: error });
   }
 };
@@ -24,6 +26,7 @@ export const getUsers = async (_: Request, res: Response): Promise<any> => {
     const users = await prisma.user.findMany();
     return res.status(200).json(users);
   } catch (error) {
+    console.error(`[ERROR] Get User: ${error}`);
     return res.status(500).json({ error: error });
   }
 };
@@ -36,6 +39,7 @@ export const deleteUser = async (req: Request, res: Response): Promise<any> => {
     });
     return res.status(204).send();
   } catch (error) {
+    console.error(`[ERROR] Delete User: ${error}`);
     return res.status(500).json({ error: 'Failed to delete user' });
   }
 };
