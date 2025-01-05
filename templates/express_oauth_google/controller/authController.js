@@ -31,11 +31,11 @@ const checkLogin = (req, res) => {
 const handleAuth = async (req, res) => {
     const { error, code } = req.query;
     if (error == 'access_denied') {
-        // Redirect to home if user cancels authentication
+        // Redirect to home if user cancels authentication.
         return res.redirect('/');
     }
 
-    // Exchange code for tokens
+    // Exchange code for tokens.
     const { data: tokens } = await axios.post(googleConfig.tokenUrl, {
         code,
         client_id: process.env.GOOGLE_CLIENT_ID,
@@ -44,7 +44,7 @@ const handleAuth = async (req, res) => {
         grant_type: 'authorization_code',
     });
 
-    // Fetch user profile
+    // Fetch user profile.
     const { data: googleUser } = await axios.get(
         `${googleConfig.userInfoUrl}&access_token=${tokens.access_token}`
     );
@@ -52,7 +52,7 @@ const handleAuth = async (req, res) => {
     const user = { email: googleUser.email, name: googleUser.name, };
     const token = jwt.sign(user, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.cookie('token', token, { httpOnly: true });
-    // res.cookie('token', token, { httpOnly: true, secure: true }) // use in production
+    // res.cookie('token', token, { httpOnly: true, secure: true }) // Use in production.
     return res.redirect('/');
 };
 

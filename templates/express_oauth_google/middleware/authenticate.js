@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken'
 
 import { errorHandlerFunc } from '../errorHandler/errorHandler.js'
 
-// cookie token authetication
+// Cookie token authentication.
 const authenticateUser = (req, res, next) => {
     const token = req.cookies?.token;
     if (!token) {
@@ -14,7 +14,7 @@ const authenticateUser = (req, res, next) => {
         req.user = user;
         next();
     } catch (err) {
-        // renew token if it gets expired
+        // Renew token if it gets expired.
         if (err.name === 'TokenExpiredError') {
             try {
                 const user = jwt.decode(token);

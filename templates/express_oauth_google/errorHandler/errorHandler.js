@@ -1,6 +1,6 @@
 import { appendFileSync } from 'fs';
 
-// custom error handling function
+// Custom error handling function.
 const errorHandlerFunc = (err, res, filePath, statusCode, message) => {
     const timeStamp = new Date().toLocaleString();
     const errMessage = `[ERROR]: ${timeStamp} - ${err.message}`;
@@ -13,7 +13,7 @@ const errorHandlerFunc = (err, res, filePath, statusCode, message) => {
     });
 }
 
-// custome error handling wrapper for every middleware incase something goes wrong
+// Custom error handling wrapper for every middleware incase something goes wrong.
 const errorHandlerWrapper = (middleware, filePath) => {
     return (req, res, next) => {
         try {

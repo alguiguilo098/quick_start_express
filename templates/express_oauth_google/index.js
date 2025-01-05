@@ -1,7 +1,7 @@
 import { configDotenv } from 'dotenv';
 configDotenv({ path: "./.env" });
 
-// for testing
+// For testing.
 // console.log(process.env.GOOGLE_CLIENT_ID)
 // console.log(process.env.GOOGLE_CLIENT_SECRET)
 
