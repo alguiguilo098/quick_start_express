@@ -1,7 +1,7 @@
 export const metadata = {
   command: "qse",
   name: "Quick Start Express",
-  version: "v1.0.4-beta",
+  version: "v1.0.5-beta",
   description:
     "A simple CLI tool to generate Express servers from multiple available templates.",
   oneLineDescription: "A simple Express.js server generator CLI tool.",
@@ -55,5 +55,8 @@ export const templates = {
   },
   express_oauth_microsoft: {
     name: "express_oauth_microsoft",
+  },
+  express_oauth_google: {
+    name: "express_oauth_google",
   },
 };
