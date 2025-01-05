@@ -178,6 +178,20 @@ describe("init", () => {
     expect(hasNodemon()).toBe(true);
   }, 10000);
 
+  
+  test("express_oauth_google with nodemon", async () => {
+    const originalHash = computeSHA256Hash(
+      path.join(__dirname, "..", "templates", "express_oauth_google")
+    );
+    await exec(`node ../../bin/index.js init -t express_oauth_google`, {
+      cwd: tempDir,
+    });
+    const commandHash = computeSHA256Hash(tempDir);
+    expect(commandHash).toEqual(originalHash);
+
+    expect(hasNodemon()).toBe(true);
+  }, 10000);
+
   test("invalid template name passed", async () => {
     const { stdout, stderr } = await exec(
       `node ../../bin/index.js init -t invalid_template`,

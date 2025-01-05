@@ -1,6 +1,8 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
+
 import { errorHandlerFunc } from '../errorHandler/errorHandler.js';
+import { googleConfig } from '../config/config.js';
 
 const checkLogin = (req, res) => {
     const token = req.cookies?.token;
@@ -13,22 +15,17 @@ const checkLogin = (req, res) => {
         }
     }
 
-    // redirect to consent screen
-    const rootURL = 'https://accounts.google.com/o/oauth2/v2/auth';
     const options = {
         redirect_uri: process.env.GOOGLE_CALLBACK_URL,
         client_id: process.env.GOOGLE_CLIENT_ID,
         access_type: 'offline',
         response_type: 'code',
         prompt: 'consent',
-        scope: [
-            'https://www.googleapis.com/auth/userinfo.profile',
-            'https://www.googleapis.com/auth/userinfo.email',
-        ].join(' '),
+        scope: googleConfig.scope,
     };
 
     const queryParams = new URLSearchParams(options).toString();
-    return res.redirect(`${rootURL}?${queryParams}`);
+    return res.redirect(`${googleConfig.authUrl}?${queryParams}`);
 };
 
 const handleAuth = async (req, res) => {
@@ -39,17 +36,17 @@ const handleAuth = async (req, res) => {
     }
 
     // Exchange code for tokens
-    const { data: tokens } = await axios.post('https://oauth2.googleapis.com/token', {
+    const { data: tokens } = await axios.post(googleConfig.tokenUrl, {
         code,
         client_id: process.env.GOOGLE_CLIENT_ID,
         client_secret: process.env.GOOGLE_CLIENT_SECRET,
         redirect_uri: process.env.GOOGLE_CALLBACK_URL,
         grant_type: 'authorization_code',
     });
-    
+
     // Fetch user profile
     const { data: googleUser } = await axios.get(
-        `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${tokens.access_token}`
+        `${googleConfig.userInfoUrl}&access_token=${tokens.access_token}`
     );
 
     const user = { email: googleUser.email, name: googleUser.name, };

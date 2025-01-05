@@ -1,9 +1,9 @@
 import { configDotenv } from 'dotenv';
-configDotenv({ path: "./.env" }); // Use when testing the template
+configDotenv({ path: "./.env" });
 
 // for testing
-console.log(process.env.GOOGLE_CLIENT_ID)
-console.log(process.env.GOOGLE_CLIENT_SECRET)
+// console.log(process.env.GOOGLE_CLIENT_ID)
+// console.log(process.env.GOOGLE_CLIENT_SECRET)
 
 import express from 'express';
 import cookieParser from 'cookie-parser';
