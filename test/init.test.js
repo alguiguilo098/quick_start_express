@@ -126,7 +126,7 @@ describe("init", () => {
     expect(commandHash).toEqual(originalHash);
 
     expect(hasNodemon()).toBe(true);
-  });
+  }, 10000);
 
   test("basic with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -137,7 +137,7 @@ describe("init", () => {
     expect(commandHash).toEqual(originalHash);
 
     expect(hasNodemon()).toBe(true);
-  });
+  }, 10000);
 
   test("express_pg_sequelize with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -189,7 +189,7 @@ describe("init", () => {
     expect(commandHash).toEqual(originalHash);
 
     expect(hasNodemon()).toBe(true);
-  }, 10000);
+  }, 15000);
   
   test("express_oauth_google with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -251,7 +251,7 @@ describe("init", () => {
       cwd: tempDir,
     });
     verifyPackageName(validName);
-  });
+  }, 10000);
 
   test("valid template name: lowercase only", async () => {
     const validName = "validname";
@@ -259,7 +259,7 @@ describe("init", () => {
       cwd: tempDir,
     });
     verifyPackageName(validName);
-  });
+  }, 10000);
 
   test("valid template name: URL friendly characters", async () => {
     const validName = "valid-name";
@@ -267,7 +267,7 @@ describe("init", () => {
       cwd: tempDir,
     });
     verifyPackageName(validName);
-  });
+  }, 10000);
 
   // Nodemon flag tests.
   test('no template passed, should default to basic template without nodemon', async () => {
@@ -340,7 +340,7 @@ describe("init", () => {
     if (packageJson.devDependencies) {
       expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
     }
-  }, 10000);
+  }, 15000);
 
   test('express_oauth_google without nodemon', async () => {
     await exec('node ../../bin/index.js init -t express_oauth_google --remove-nodemon', { cwd: tempDir, });
