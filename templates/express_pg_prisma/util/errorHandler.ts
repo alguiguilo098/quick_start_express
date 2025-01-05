@@ -1,6 +1,7 @@
 import { appendFileSync } from 'fs';
+import { Response } from 'express';
 
-export const errorHandlerFunc = (err, res, filePath, statusCode, message) => {
+export const handleError = (err: Error, res: Response, filePath: string, statusCode: Number, message: string) => {
     const timeStamp = new Date().toLocaleString();
     const errMessage = `[ERROR]: ${timeStamp} - ${err.message}`;
     console.error(errMessage);
@@ -8,6 +9,6 @@ export const errorHandlerFunc = (err, res, filePath, statusCode, message) => {
 
     return res.status(statusCode).send({
         "message": message,
-        "error": err.message
+        "error": "Internal Server Error"
     });
 }
