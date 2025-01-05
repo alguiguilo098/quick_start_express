@@ -24,7 +24,7 @@ qse --version
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/2dc11693-d0e0-4900-a5fb-876c87806570" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/146014fb-db6d-4a6c-be26-275cdb72d98c" width="800px"/>
 </div>
 
 ## List
@@ -38,7 +38,7 @@ qse list
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/2057d8ca-234c-4f43-9449-0a3158bd4f09" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/00cfa0d6-462d-43ee-9389-aebf5cd286d2" width="800px"/>
 </div>
 
 ## Init

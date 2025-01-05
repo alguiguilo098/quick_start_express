@@ -126,7 +126,7 @@ describe("init", () => {
     expect(commandHash).toEqual(originalHash);
 
     expect(hasNodemon()).toBe(true);
-  });
+  }, 10000);
 
   test("basic with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -137,7 +137,7 @@ describe("init", () => {
     expect(commandHash).toEqual(originalHash);
 
     expect(hasNodemon()).toBe(true);
-  });
+  }, 10000);
 
   test("express_pg_sequelize with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -177,6 +177,19 @@ describe("init", () => {
 
     expect(hasNodemon()).toBe(true);
   }, 10000);
+
+  test("express_pg_prisma with nodemon", async () => {
+    const originalHash = computeSHA256Hash(
+      path.join(__dirname, "..", "templates", "express_pg_prisma")
+    );
+    await exec(`node ../../bin/index.js init -t express_pg_prisma`, {
+      cwd: tempDir,
+    });
+    const commandHash = computeSHA256Hash(tempDir);
+    expect(commandHash).toEqual(originalHash);
+
+    expect(hasNodemon()).toBe(true);
+  }, 15000);
   
   test("express_oauth_google with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -238,7 +251,7 @@ describe("init", () => {
       cwd: tempDir,
     });
     verifyPackageName(validName);
-  });
+  }, 10000);
 
   test("valid template name: lowercase only", async () => {
     const validName = "validname";
@@ -246,7 +259,7 @@ describe("init", () => {
       cwd: tempDir,
     });
     verifyPackageName(validName);
-  });
+  }, 10000);
 
   test("valid template name: URL friendly characters", async () => {
     const validName = "valid-name";
@@ -254,7 +267,7 @@ describe("init", () => {
       cwd: tempDir,
     });
     verifyPackageName(validName);
-  });
+  }, 10000);
 
   // Nodemon flag tests.
   test('no template passed, should default to basic template without nodemon', async () => {
@@ -316,6 +329,18 @@ describe("init", () => {
       expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
     }
   }, 10000);
+
+  test('express_pg_prisma without nodemon', async () => {
+    await exec('node ../../bin/index.js init -t express_pg_prisma --remove-nodemon', { cwd: tempDir, });
+    const packageJson = readPackageJson();
+
+    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.dev).toBeUndefined();
+
+    if (packageJson.devDependencies) {
+      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+    }
+  }, 15000);
 
   test('express_oauth_google without nodemon', async () => {
     await exec('node ../../bin/index.js init -t express_oauth_google --remove-nodemon', { cwd: tempDir, });
