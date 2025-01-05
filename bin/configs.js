@@ -53,4 +53,7 @@ export const templates = {
   express_oauth_microsoft: {
     name: "express_oauth_microsoft",
   },
+  express_oauth_google: {
+    name: "express_oauth_google",
+  },
 };
