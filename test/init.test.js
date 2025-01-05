@@ -177,7 +177,6 @@ describe("init", () => {
 
     expect(hasNodemon()).toBe(true);
   }, 10000);
-
   
   test("express_oauth_google with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -308,6 +307,18 @@ describe("init", () => {
 
   test('express_oauth_microsoft without nodemon', async () => {
     await exec('node ../../bin/index.js init -t express_oauth_microsoft --remove-nodemon', { cwd: tempDir, });
+    const packageJson = readPackageJson();
+
+    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.dev).toBeUndefined();
+
+    if (packageJson.devDependencies) {
+      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+    }
+  }, 10000);
+
+  test('express_oauth_google without nodemon', async () => {
+    await exec('node ../../bin/index.js init -t express_oauth_google --remove-nodemon', { cwd: tempDir, });
     const packageJson = readPackageJson();
 
     expect(packageJson.scripts.start).not.toContain('nodemon');
