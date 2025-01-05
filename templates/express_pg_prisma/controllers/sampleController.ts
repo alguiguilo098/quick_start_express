@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { Request, Response } from 'express';
-
+import { errorHandlerFunc } from '../errorhandler/errorfunc';
 const prisma = new PrismaClient();
 
 export const test = async (_: Request, res: Response): Promise<any> => {
@@ -17,7 +17,7 @@ export const createUser = async (req: Request, res: Response): Promise<any> => {
     return res.status(201).json(newUser);
   } catch (error) {
     console.error(`[ERROR] Create User: ${error}`);
-    return res.status(400).json({ error: error });
+    return errorHandlerFunc(error, res, 'controller.log', 500, 'Failed to create user');
   }
 };
 
@@ -27,7 +27,7 @@ export const getUsers = async (_: Request, res: Response): Promise<any> => {
     return res.status(200).json(users);
   } catch (error) {
     console.error(`[ERROR] Get User: ${error}`);
-    return res.status(500).json({ error: error });
+    return errorHandlerFunc(error, res, 'controller.log', 500, 'Failed to get users');
   }
 };
 
@@ -40,6 +40,6 @@ export const deleteUser = async (req: Request, res: Response): Promise<any> => {
     return res.status(204).send();
   } catch (error) {
     console.error(`[ERROR] Delete User: ${error}`);
-    return res.status(500).json({ error: 'Failed to delete user' });
+    return errorHandlerFunc(error, res, 'controller.log', 500, 'Failed to delete user');
   }
 };
