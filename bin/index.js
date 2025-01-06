@@ -209,20 +209,20 @@ async function initCommand(options) {
       console.error(err);
     }
   }
-
+  
   console.log(chalk.green.bold("\nSetup complete! To run your server:"));
+  if (!dependencies) {
+    console.log(
+      chalk.yellow("Install dependencies: "),
+      chalk.white.bold("npm i")
+    )
+  }
   console.log(chalk.yellow("Run:"), chalk.white.bold("npm start"));
   if (!removeNodemon) {
     console.log(
       chalk.yellow("Run with hot reloading:"),
       chalk.white.bold("npm run dev")
     );
-  }
-  if (!dependencies) {
-    console.log(
-      chalk.yellow("Install dependencies: "),
-      chalk.white.bold("npm i")
-    )
   }
 }
 
