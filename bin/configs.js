@@ -60,3 +60,10 @@ export const templates = {
     name: "express_oauth_google",
   },
 };
+
+export const questions = {
+  type: 'list',
+  message: 'Select a template',
+  name: 'template',
+  choices: Object.values(templates).map(template => template.name)
+}
