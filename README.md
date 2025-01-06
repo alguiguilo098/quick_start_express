@@ -55,9 +55,7 @@ qse init
    <img src="https://github.com/user-attachments/assets/84e2fc79-9b88-4817-baf4-56845d5ee756" width="800px"/>
 </div>
 
-
 Initialize without nodemon.
-
 
 ```bash
 qse init --remove-nodemon
@@ -67,6 +65,19 @@ qse init --remove-nodemon
 
 <div align="center">
    <img src="https://github.com/user-attachments/assets/279b2de6-4360-4399-aa98-cd9d17ca330f" width="800px"/>
+</div>
+
+### Customize the Generated Server App Name
+
+Set a custom name for your generated Express server application during initialization.
+
+```bash
+qse init -t basic -n app_name
+```
+### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/110671e5-326b-4d72-a595-2ff62d5dfde8" width="800px"/>
 </div>
 
 ## Clear
@@ -174,6 +185,7 @@ npm test
 - [Kiran Rajeev](https://github.com/KiranRajeev-KV)
 - [Adripo](https://github.com/adripo)
 - [Akshay K S](https://github.com/akshayks13)
+- [Jayadev D](https://github.com/FLASH2332)
 - [K Venkatesh](https://github.com/venkatesh21bit)
 - [Vaibav](https://github.com/vaibav03)
 - [Phuong Thuy Nguyen](https://github.com/irisgranger)
