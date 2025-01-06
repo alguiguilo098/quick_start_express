@@ -28,6 +28,10 @@ export const commands = {
         flags: "--remove-nodemon",
         description: "Disable hot-reload support using nodemon",
       },
+      {
+        flags: "--no-dependencies",
+        description: "Do not install the dependencies"
+      }
     ],
   },
   list: {
