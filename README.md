@@ -55,9 +55,7 @@ qse init
    <img src="https://github.com/user-attachments/assets/84e2fc79-9b88-4817-baf4-56845d5ee756" width="800px"/>
 </div>
 
-
 Initialize without nodemon.
-
 
 ```bash
 qse init --remove-nodemon
@@ -67,6 +65,18 @@ qse init --remove-nodemon
 
 <div align="center">
    <img src="https://github.com/user-attachments/assets/279b2de6-4360-4399-aa98-cd9d17ca330f" width="800px"/>
+</div>
+
+### Customize the Generated Server App Name
+Set a custom name for your generated Express server application during initialization.
+
+```bash
+qse init -t express_mysql -n app_name
+```
+### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/297ff79e-28bb-44d8-8028-6c2a6f52d98d" width="800px"/>
 </div>
 
 ## Clear
