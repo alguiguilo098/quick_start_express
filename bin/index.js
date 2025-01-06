@@ -26,6 +26,7 @@ program
   .option(commands.init.options[0].flags, commands.init.options[0].description)
   .option(commands.init.options[1].flags, commands.init.options[1].description)
   .option(commands.init.options[2].flags, commands.init.options[2].description)
+  .option(commands.init.options[3].flags, commands.init.options[3].description)
   .action((options) => {
     toolIntro();
     initCommand(options);
@@ -94,6 +95,7 @@ async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
   const packageName = options.name || "quick-start-express-server"; // Default to 'quick-start-express-server' if no name is specified
   const removeNodemon = options.removeNodemon;
+  const dependencies = options.dependencies
 
   if (packageName) {
     const validateResult = validate(packageName);
@@ -192,18 +194,20 @@ async function initCommand(options) {
     console.error(err.message);
   }
 
-  const installDependencies = createSpinner(
-    "Installing dependency packages..."
-  ).start();
-  try {
-    execSync("npm i", { stdio: "ignore", cwd: targetDir });
-
-    installDependencies.success({
-      text: "Installed dependencies successfully.",
-    });
-  } catch (err) {
-    installDependencies.error({ text: "Error installing dependencies.\n" });
-    console.error(err);
+  if (dependencies) {
+    const installDependencies = createSpinner(
+      "Installing dependency packages..."
+    ).start();
+    try {
+      execSync("npm i", { stdio: "ignore", cwd: targetDir });
+  
+      installDependencies.success({
+        text: "Installed dependencies successfully.",
+      });
+    } catch (err) {
+      installDependencies.error({ text: "Error installing dependencies.\n" });
+      console.error(err);
+    }
   }
 
   console.log(chalk.green.bold("\nSetup complete! To run your server:"));
