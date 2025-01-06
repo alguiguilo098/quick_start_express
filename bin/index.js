@@ -218,6 +218,12 @@ async function initCommand(options) {
       chalk.white.bold("npm run dev")
     );
   }
+  if (!dependencies) {
+    console.log(
+      chalk.yellow("Install dependencies: "),
+      chalk.white.bold("npm i")
+    )
+  }
 }
 
 const toolIntro = () => {
