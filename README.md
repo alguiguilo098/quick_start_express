@@ -72,7 +72,7 @@ qse init --remove-nodemon
 Set a custom name for your generated Express server application during initialization.
 
 ```bash
-qse init -t express_mysql -n app_name
+qse init -t basic -n app_name
 ```
 ### Output
 
