@@ -24,7 +24,7 @@ qse --version
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/146014fb-db6d-4a6c-be26-275cdb72d98c" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/d2f187b2-ec24-4e09-8814-3ae928447af6" width="800px"/>
 </div>
 
 ## List
@@ -38,7 +38,7 @@ qse list
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/00cfa0d6-462d-43ee-9389-aebf5cd286d2" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/75a53c79-de47-4e0f-b9eb-9b5ca5101481" width="800px"/>
 </div>
 
 ## Init
@@ -63,6 +63,13 @@ Initialize without nodemon.
 qse init --remove-nodemon
 ```
 
+### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/279b2de6-4360-4399-aa98-cd9d17ca330f" width="800px"/>
+</div>
+
+
 Initialize without installation of dependencies.
 ```bash
 qse init --no-dependencies
@@ -71,7 +78,7 @@ qse init --no-dependencies
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/279b2de6-4360-4399-aa98-cd9d17ca330f" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/40eab11f-e36a-42be-b63a-c01a2ce486e0" width="800px"/>
 </div>
 
 ## Clear
