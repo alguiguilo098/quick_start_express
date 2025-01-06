@@ -76,11 +76,10 @@ Initialize without installation of dependencies.
 qse init --no-deps
 ```
 
-
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/94c6c849-2ed2-4602-b471-07fe0dcf3a29" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/44457d46-83d7-4392-8a28-0884c6609791" width="800px"/>
 </div>
 
 ## Clear
