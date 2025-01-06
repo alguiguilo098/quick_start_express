@@ -35,10 +35,11 @@ List all available commands and options.
 qse list
 ```
 
+
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/75a53c79-de47-4e0f-b9eb-9b5ca5101481" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/c8ca7057-8ccc-4f6c-a152-992aeee68b7e" width="800px"/>
 </div>
 
 ## Init
@@ -72,13 +73,14 @@ qse init --remove-nodemon
 
 Initialize without installation of dependencies.
 ```bash
-qse init --no-dependencies
+qse init --no-deps
 ```
+
 
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/40eab11f-e36a-42be-b63a-c01a2ce486e0" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/94c6c849-2ed2-4602-b471-07fe0dcf3a29" width="800px"/>
 </div>
 
 ## Clear
