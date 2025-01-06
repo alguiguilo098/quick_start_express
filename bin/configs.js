@@ -1,3 +1,5 @@
+import { type } from "os";
+
 export const metadata = {
   command: "qse",
   name: "Quick Start Express",
@@ -61,9 +63,19 @@ export const templates = {
   },
 };
 
-export const questions = {
-  type: 'list',
+export const questions = 
+  [{
+    type: 'list',
   message: 'Select a template',
   name: 'template',
-  choices: Object.values(templates).map(template => template.name)
-}
+  choices: Object.values(templates).map(template => template.name),
+  },{
+    type: 'input',
+    message: 'Enter the name of the package',
+    name: 'name',
+  },{
+    type: 'confirm',
+    message: 'Do you want to remove nodemon?',
+    name: 'removeNodemon',
+  }]
+  
