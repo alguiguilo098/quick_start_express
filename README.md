@@ -39,7 +39,7 @@ qse list
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/c8ca7057-8ccc-4f6c-a152-992aeee68b7e" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/6f36f0e1-c714-4728-bd81-844b8104fe43" width="800px"/>
 </div>
 
 ## Init
@@ -73,13 +73,14 @@ qse init --remove-nodemon
 
 Initialize without installation of dependencies.
 ```bash
-qse init --no-deps
+qse init --remove-deps
 ```
+
 
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/44457d46-83d7-4392-8a28-0884c6609791" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/6ad96031-ff06-469f-8ec0-319d812558fa" width="800px"/>
 </div>
 
 ## Clear
