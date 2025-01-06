@@ -63,6 +63,11 @@ Initialize without nodemon.
 qse init --remove-nodemon
 ```
 
+Initialize without installation of dependencies.
+```bash
+qse init --no-dependencies
+```
+
 ### Output
 
 <div align="center">
