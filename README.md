@@ -185,6 +185,7 @@ npm test
 - [Kiran Rajeev](https://github.com/KiranRajeev-KV)
 - [Adripo](https://github.com/adripo)
 - [Akshay K S](https://github.com/akshayks13)
+- [Jayadev D](https://github.com/FLASH2332)
 - [K Venkatesh](https://github.com/venkatesh21bit)
 - [Vaibav](https://github.com/vaibav03)
 - [Phuong Thuy Nguyen](https://github.com/irisgranger)
