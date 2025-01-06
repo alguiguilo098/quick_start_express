@@ -29,7 +29,7 @@ export const commands = {
         description: "Disable hot-reload support using nodemon",
       },
       {
-        flags: "--no-dependencies",
+        flags: "--no-deps",
         description: "Do not install the dependencies"
       }
     ],

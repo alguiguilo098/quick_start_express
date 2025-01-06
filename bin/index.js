@@ -95,7 +95,7 @@ async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
   const packageName = options.name || "quick-start-express-server"; // Default to 'quick-start-express-server' if no name is specified
   const removeNodemon = options.removeNodemon;
-  const dependencies = options.dependencies
+  const dependencies = options.deps
 
   if (packageName) {
     const validateResult = validate(packageName);
