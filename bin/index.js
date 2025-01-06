@@ -95,7 +95,7 @@ async function initCommand(options) {
   const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
   const packageName = options.name || "quick-start-express-server"; // Default to 'quick-start-express-server' if no name is specified
   const removeNodemon = options.removeNodemon;
-  const dependencies = options.deps
+  const removeDependencies = options.removeDeps;
 
   if (packageName) {
     const validateResult = validate(packageName);
@@ -194,7 +194,7 @@ async function initCommand(options) {
     console.error(err.message);
   }
 
-  if (dependencies) {
+  if (!removeDependencies) {
     const installDependencies = createSpinner(
       "Installing dependency packages..."
     ).start();
@@ -211,7 +211,7 @@ async function initCommand(options) {
   }
   
   console.log(chalk.green.bold("\nSetup complete! To run your server:"));
-  if (!dependencies) {
+  if (removeDependencies) {
     console.log(
       chalk.yellow("Install dependencies: "),
       chalk.white.bold("npm i")
