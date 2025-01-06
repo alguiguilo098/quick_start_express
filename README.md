@@ -1,4 +1,4 @@
-![qse_list](https://github.com/user-attachments/assets/75a53c79-de47-4e0f-b9eb-9b5ca5101481)[![npm latest published version](https://img.shields.io/npm/v/quick_start_express)](https://www.npmjs.com/package/quick_start_express)
+[![npm latest published version](https://img.shields.io/npm/v/quick_start_express)](https://www.npmjs.com/package/quick_start_express)
 [![npm downloads last 18 months](https://img.shields.io/npm/d18m/quick_start_express)](https://www.npmjs.com/package/quick_start_express)
 [![npm last updated](https://img.shields.io/npm/last-update/quick_start_express)](https://www.npmjs.com/package/quick_start_express)
 [![build status](https://img.shields.io/github/actions/workflow/status/CSE-25/quick_start_express/runJestTests.yml)](https://github.com/CSE-25/quick_start_express)
@@ -24,7 +24,7 @@ qse --version
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/60c0d851-84ef-4df7-b0d8-87ce9ba2b0ee" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/d2f187b2-ec24-4e09-8814-3ae928447af6" width="800px"/>
 </div>
 
 ## List
@@ -38,7 +38,7 @@ qse list
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/00cfa0d6-462d-43ee-9389-aebf5cd286d2" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/75a53c79-de47-4e0f-b9eb-9b5ca5101481" width="800px"/>
 </div>
 
 ## Init
@@ -78,7 +78,7 @@ qse init --no-dependencies
 ### Output
 
 <div align="center">
-   <img src="!https://github.com/user-attachments/assets/3ee7420d-9923-492b-863d-e673a838e132" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/40eab11f-e36a-42be-b63a-c01a2ce486e0" width="800px"/>
 </div>
 
 ## Clear
