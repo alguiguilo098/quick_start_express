@@ -8,6 +8,7 @@ const list = `Available Commands:
   (Options: -t, --template <template> - Specify template to use)
   (Options: -n, --name <name> - Specify the name of the package)
   (Options: --remove-nodemon - Disable hot-reload support using nodemon)
+  (Options: --remove-deps - Do not install the dependencies)
 - list: List all available commands and options.
 - clear: Clear the directory.
 
@@ -17,7 +18,7 @@ Available Templates:
 - express_mysql
 - express_pg_prisma
 - express_oauth_microsoft
-- express_oauth_google\n`
+- express_oauth_google\n`;
 
 describe("List Command", () => {
   test("list", async () => {

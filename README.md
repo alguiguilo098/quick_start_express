@@ -24,7 +24,7 @@ qse --version
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/146014fb-db6d-4a6c-be26-275cdb72d98c" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/d2f187b2-ec24-4e09-8814-3ae928447af6" width="800px"/>
 </div>
 
 ## List
@@ -35,15 +35,16 @@ List all available commands and options.
 qse list
 ```
 
+
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/00cfa0d6-462d-43ee-9389-aebf5cd286d2" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/6f36f0e1-c714-4728-bd81-844b8104fe43" width="800px"/>
 </div>
 
 ## Init
 
-Initialize a new Express.js server.
+### Initialize a new Express.js server.
 
 ```bash
 qse init
@@ -55,7 +56,7 @@ qse init
    <img src="https://github.com/user-attachments/assets/84e2fc79-9b88-4817-baf4-56845d5ee756" width="800px"/>
 </div>
 
-Initialize without nodemon.
+### Initialize without nodemon.
 
 ```bash
 qse init --remove-nodemon
@@ -65,6 +66,22 @@ qse init --remove-nodemon
 
 <div align="center">
    <img src="https://github.com/user-attachments/assets/279b2de6-4360-4399-aa98-cd9d17ca330f" width="800px"/>
+</div>
+
+
+### Initialize without installation of dependencies.
+
+Initialize a new Express.js server without installing dependencies.
+
+```bash
+qse init --remove-deps
+```
+
+
+### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/6ad96031-ff06-469f-8ec0-319d812558fa" width="800px"/>
 </div>
 
 ### Customize the Generated Server App Name
@@ -188,6 +205,7 @@ npm test
 - [Jayadev D](https://github.com/FLASH2332)
 - [K Venkatesh](https://github.com/venkatesh21bit)
 - [Vaibav](https://github.com/vaibav03)
+- [Pavan Prakash K](https://github.com/PavanCodes05)
 - [Phuong Thuy Nguyen](https://github.com/irisgranger)
 - [Abhinav Bansal](https://github.com/Abhinav-Bansal751)
 - [Guilherme Almeida Lopes](https://github.com/alguiguilo098)
