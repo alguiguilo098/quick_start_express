@@ -1,0 +1,17 @@
+{
+  "name": "express_ts_basic",
+  "version": "1.0.0",
+  "description": "Basic Express server in TypeScript",
+  "main": "index.ts",
+  "scripts": {
+    "start": "ts-node index.ts",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.0",
+    "ts-node": "^10.0.0"
+  }
+}

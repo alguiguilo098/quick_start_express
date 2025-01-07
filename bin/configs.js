@@ -92,4 +92,31 @@ export const templates = {
       },
     ],
   },
+  express_ts_basic: {
+    name: "express_ts_basic",
+    description: 'Express with TypeScript template',
+    path: './templates/express_ts_basic',
+    dependencies: [
+      {
+        name: "express",
+        version: "^4.17.1",
+      },
+      {
+        name: "typescript",
+        version: "^5.0.0", 
+      },
+      {
+        name: "@types/node",
+        version: "^20.0.0", 
+      },
+      {
+        name: "@types/express",
+        version: "^4.17.17", 
+      },
+      {
+        name: "ts-node-dev",
+        version: "^2.0.0", 
+      },
+    ],
+  },
 };
