@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "node bin/index.js init",
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    "test": "node --experimental-vm-modules --disable-warning=ExperimentalWarning node_modules/jest/bin/jest.js --verbose"
   },
   "author": "Abhinav Ramakrishnan, Ashwin Narayanan S",
   "license": "ISC",
