@@ -200,7 +200,7 @@ async function initCommand(options) {
     ).start();
     try {
       execSync("npm i", { stdio: "ignore", cwd: targetDir });
-  
+
       installDependencies.success({
         text: "Installed dependencies successfully.",
       });
@@ -209,13 +209,13 @@ async function initCommand(options) {
       console.error(err);
     }
   }
-  
+
   console.log(chalk.green.bold("\nSetup complete! To run your server:"));
   if (removeDependencies) {
     console.log(
       chalk.yellow("Install dependencies: "),
       chalk.white.bold("npm i")
-    )
+    );
   }
   console.log(chalk.yellow("Run:"), chalk.white.bold("npm start"));
   if (!removeNodemon) {

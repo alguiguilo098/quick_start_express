@@ -18,7 +18,7 @@ Available Templates:
 - express_mysql
 - express_pg_prisma
 - express_oauth_microsoft
-- express_oauth_google\n`
+- express_oauth_google\n`;
 
 describe("List Command", () => {
   test("list", async () => {

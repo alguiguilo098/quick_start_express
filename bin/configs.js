@@ -30,8 +30,8 @@ export const commands = {
       },
       {
         flags: "--remove-deps",
-        description: "Do not install the dependencies"
-      }
+        description: "Do not install the dependencies",
+      },
     ],
   },
   list: {

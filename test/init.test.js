@@ -18,7 +18,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const tempDir = path.join(__dirname, "temp");
 
 function readPackageJson() {
-  const packageJsonPath = path.join(tempDir, 'package.json');
+  const packageJsonPath = path.join(tempDir, "package.json");
   const packageJsonContent = readFileSync(packageJsonPath, "utf8");
   return JSON.parse(packageJsonContent);
 }
@@ -33,7 +33,7 @@ function hasNodemon() {
     return false;
   }
 
-  if (!packageJson.scripts.dev.includes('nodemon')) {
+  if (!packageJson.scripts.dev.includes("nodemon")) {
     return false;
   }
 
@@ -67,7 +67,7 @@ function clearTempDirectory() {
 }
 
 function nodeModulesExist() {
-  return existsSync(path.join(tempDir, 'node_modules'));
+  return existsSync(path.join(tempDir, "node_modules"));
 }
 
 function traverseDirectory(dirName, hash) {
@@ -216,7 +216,7 @@ describe("normal init with default settings", () => {
     expect(hasNodemon()).toBe(true);
     expect(nodeModulesExist()).toBe(true);
   }, 20000);
-})
+});
 
 describe("init --remove-deps", () => {
   beforeEach(() => {
@@ -243,7 +243,9 @@ describe("init --remove-deps", () => {
     const originalHash = computeSHA256Hash(
       path.join(__dirname, "..", "templates", "basic")
     );
-    await exec(`node ../../bin/index.js init -t basic --remove-deps`, { cwd: tempDir });
+    await exec(`node ../../bin/index.js init -t basic --remove-deps`, {
+      cwd: tempDir,
+    });
     const commandHash = computeSHA256Hash(tempDir);
     expect(commandHash).toEqual(originalHash);
 
@@ -255,9 +257,12 @@ describe("init --remove-deps", () => {
     const originalHash = computeSHA256Hash(
       path.join(__dirname, "..", "templates", "express_pg_sequelize")
     );
-    await exec(`node ../../bin/index.js init -t express_pg_sequelize --remove-deps`, {
-      cwd: tempDir,
-    });
+    await exec(
+      `node ../../bin/index.js init -t express_pg_sequelize --remove-deps`,
+      {
+        cwd: tempDir,
+      }
+    );
     const commandHash = computeSHA256Hash(tempDir);
     expect(commandHash).toEqual(originalHash);
 
@@ -283,9 +288,12 @@ describe("init --remove-deps", () => {
     const originalHash = computeSHA256Hash(
       path.join(__dirname, "..", "templates", "express_oauth_microsoft")
     );
-    await exec(`node ../../bin/index.js init -t express_oauth_microsoft --remove-deps`, {
-      cwd: tempDir,
-    });
+    await exec(
+      `node ../../bin/index.js init -t express_oauth_microsoft --remove-deps`,
+      {
+        cwd: tempDir,
+      }
+    );
     const commandHash = computeSHA256Hash(tempDir);
     expect(commandHash).toEqual(originalHash);
 
@@ -297,9 +305,12 @@ describe("init --remove-deps", () => {
     const originalHash = computeSHA256Hash(
       path.join(__dirname, "..", "templates", "express_pg_prisma")
     );
-    await exec(`node ../../bin/index.js init -t express_pg_prisma --remove-deps`, {
-      cwd: tempDir,
-    });
+    await exec(
+      `node ../../bin/index.js init -t express_pg_prisma --remove-deps`,
+      {
+        cwd: tempDir,
+      }
+    );
     const commandHash = computeSHA256Hash(tempDir);
     expect(commandHash).toEqual(originalHash);
 
@@ -311,9 +322,12 @@ describe("init --remove-deps", () => {
     const originalHash = computeSHA256Hash(
       path.join(__dirname, "..", "templates", "express_oauth_google")
     );
-    await exec(`node ../../bin/index.js init -t express_oauth_google --remove-deps`, {
-      cwd: tempDir,
-    });
+    await exec(
+      `node ../../bin/index.js init -t express_oauth_google --remove-deps`,
+      {
+        cwd: tempDir,
+      }
+    );
     const commandHash = computeSHA256Hash(tempDir);
     expect(commandHash).toEqual(originalHash);
 
@@ -375,9 +389,12 @@ describe("init with custom template name without installing deps", () => {
 
   test("valid template name: <= 214 characters", async () => {
     const validName = "a".repeat(214);
-    await exec(`node ../../bin/index.js init -t basic -n ${validName} --remove-deps`, {
-      cwd: tempDir,
-    });
+    await exec(
+      `node ../../bin/index.js init -t basic -n ${validName} --remove-deps`,
+      {
+        cwd: tempDir,
+      }
+    );
     verifyPackageName(validName);
   }, 20000);
 
@@ -396,7 +413,7 @@ describe("init with custom template name without installing deps", () => {
     });
     verifyPackageName(validName);
   }, 20000);
-})
+});
 
 // Not installing dependencies for faster tests.
 describe("init without nodemon option without installing deps.", () => {
@@ -408,87 +425,107 @@ describe("init without nodemon option without installing deps.", () => {
     clearTempDirectory();
   });
 
-  test('no template passed, should default to basic template without nodemon', async () => {
-    await exec('node ../../bin/index.js init --remove-nodemon --remove-deps', { cwd: tempDir });
+  test("no template passed, should default to basic template without nodemon", async () => {
+    await exec("node ../../bin/index.js init --remove-nodemon --remove-deps", {
+      cwd: tempDir,
+    });
     const packageJson = readPackageJson();
 
-    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.start).not.toContain("nodemon");
     expect(packageJson.scripts.dev).toBeUndefined();
 
     if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
     }
   }, 20000);
 
-  test('basic without nodemon', async () => {
-    await exec('node ../../bin/index.js init -t basic --remove-nodemon --remove-deps', { cwd: tempDir });
+  test("basic without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t basic --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
     const packageJson = readPackageJson();
 
-    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.start).not.toContain("nodemon");
     expect(packageJson.scripts.dev).toBeUndefined();
 
     if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
     }
   }, 20000);
 
-  test('express_pg_sequelize without nodemon', async () => {
-    await exec('node ../../bin/index.js init -t express_pg_sequelize --remove-nodemon --remove-deps', { cwd: tempDir, });
+  test("express_pg_sequelize without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t express_pg_sequelize --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
     const packageJson = readPackageJson();
 
-    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.start).not.toContain("nodemon");
     expect(packageJson.scripts.dev).toBeUndefined();
 
     if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
     }
   }, 20000);
 
-  test('express_mysql without nodemon', async () => {
-    await exec('node ../../bin/index.js init -t express_mysql --remove-nodemon --remove-deps', { cwd: tempDir, });
+  test("express_mysql without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t express_mysql --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
     const packageJson = readPackageJson();
 
-    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.start).not.toContain("nodemon");
     expect(packageJson.scripts.dev).toBeUndefined();
 
     if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
     }
   }, 20000);
 
-  test('express_oauth_microsoft without nodemon', async () => {
-    await exec('node ../../bin/index.js init -t express_oauth_microsoft --remove-nodemon --remove-deps', { cwd: tempDir, });
+  test("express_oauth_microsoft without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t express_oauth_microsoft --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
     const packageJson = readPackageJson();
 
-    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.start).not.toContain("nodemon");
     expect(packageJson.scripts.dev).toBeUndefined();
 
     if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
     }
   }, 20000);
 
-  test('express_pg_prisma without nodemon', async () => {
-    await exec('node ../../bin/index.js init -t express_pg_prisma --remove-nodemon --remove-deps', { cwd: tempDir, });
+  test("express_pg_prisma without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t express_pg_prisma --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
     const packageJson = readPackageJson();
 
-    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.start).not.toContain("nodemon");
     expect(packageJson.scripts.dev).toBeUndefined();
 
     if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
     }
   }, 20000);
 
-  test('express_oauth_google without nodemon', async () => {
-    await exec('node ../../bin/index.js init -t express_oauth_google --remove-nodemon --remove-deps', { cwd: tempDir, });
+  test("express_oauth_google without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t express_oauth_google --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
     const packageJson = readPackageJson();
 
-    expect(packageJson.scripts.start).not.toContain('nodemon');
+    expect(packageJson.scripts.start).not.toContain("nodemon");
     expect(packageJson.scripts.dev).toBeUndefined();
 
     if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty('nodemon');
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
     }
   }, 20000);
-})
+});
