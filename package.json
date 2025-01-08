@@ -8,10 +8,9 @@
     "dev": "node bin/index.js init",
     "test": "node --experimental-vm-modules --disable-warning=ExperimentalWarning node_modules/jest/bin/jest.js --verbose"
   },
-  "type": "module",
-  "keywords": [],
-  "author": "",
+  "author": "Abhinav Ramakrishnan, Ashwin Narayanan S",
   "license": "ISC",
+  "bin": "./bin/index.js",
   "dependencies": {
     "chalk": "^5.3.0",
     "commander": "^12.1.0",
