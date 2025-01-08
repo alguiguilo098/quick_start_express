@@ -1,5 +1,5 @@
 {
-  "name": "quick-start-express-server",
+  "name": "my-express-app",
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
