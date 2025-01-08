@@ -210,3 +210,4 @@ npm test
 - [Abhinav Bansal](https://github.com/Abhinav-Bansal751)
 - [Guilherme Almeida Lopes](https://github.com/alguiguilo098)
 - [Nitansh Shankar](https://github.com/BIJJUDAMA)
+- [Priyansh Narang](https://github.com/priyansh-narang2308)
