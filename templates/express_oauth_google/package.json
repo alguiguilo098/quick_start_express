@@ -1,7 +1,7 @@
 {
-  "name": "express_mysql",
+  "name": "express_oauth_google",
   "version": "1.0.0",
-  "description": "Backend template for Express.js server with MySQL db.",
+  "description": "Backend template for Express.js with Google OAuth authentication",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -10,11 +10,13 @@
   "author": "quick_start_express",
   "license": "ISC",
   "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^4.21.1",
+    "axios": "^1.7.9",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "fs": "^0.0.1-security",
-    "helmet": "^8.0.0",
-    "mysql2": "^3.11.3"
+    "googleapis": "^144.0.0",
+    "jsonwebtoken": "^9.0.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.9"

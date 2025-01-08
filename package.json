@@ -1,22 +1,28 @@
 {
-  "name": "my-express-app",
-  "version": "1.0.0",
-  "main": "server.js",
+  "name": "qse",
+  "version": "1.0.6-beta",
+  "description": "A simple CLI tool to generate Express servers from multiple available templates.",
+  "type": "module",
+  "main": "index.js",
   "scripts": {
-    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "node bin/index.js init",
+    "test": "node --experimental-vm-modules --disable-warning=ExperimentalWarning node_modules/jest/bin/jest.js --verbose"
   },
   "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "figlet": "^1.7.0",
+    "fs-extra": "^11.2.0",
+    "nanospinner": "^1.1.0",
+    "validate-npm-package-name": "^6.0.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.9",
     "jest": "^29.7.0",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "express": "^4.21.2"
   }
 }
