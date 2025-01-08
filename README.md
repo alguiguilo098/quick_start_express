@@ -35,11 +35,10 @@ List all available commands and options.
 qse list
 ```
 
-
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/6f36f0e1-c714-4728-bd81-844b8104fe43" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/22b633a1-91c2-4150-bd41-7ed77b70db9c" width="800px"/>
 </div>
 
 ## Init
