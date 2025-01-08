@@ -4,7 +4,7 @@ export default defineConfig({
   base: "/qse/",
   title: "Quick Start Express",
   titleTemplate: ':title | QSE',
-  description: "A tool to generate Express templates",
+  description: "A CLI tool to generate Express.js server templates.",
   cleanUrls: true,
 
   themeConfig: {
@@ -26,7 +26,8 @@ export default defineConfig({
       }
     ],
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/CSE-25/quick_start_express' }
+      { icon: 'github', link: 'https://github.com/CSE-25/quick_start_express' },
+      { icon: 'npm', link: 'https://www.npmjs.com/package/quick_start_express' }
     ]
   },
 })
