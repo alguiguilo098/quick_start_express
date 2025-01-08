@@ -2,6 +2,9 @@
 outline: deep
 ---
 
+> [!IMPORTANT]
+> The docs is Work In Progress `WIP`, and the content is not final.
+
 # Runtime API Examples
 
 This page demonstrates usage of some of the runtime APIs provided by VitePress.

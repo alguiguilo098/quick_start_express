@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> The docs is Work In Progress `WIP`, and the content is not final.
+
 # Markdown Extension Examples
 
 This page demonstrates some of the built-in markdown extensions provided by VitePress.

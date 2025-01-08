@@ -1,7 +1,7 @@
 import { defineConfig } from 'vitepress'
 
 export default defineConfig({
-  base: "/qse/",
+  base: "/quick_start_express/", // Not to be changed as it's the /<repository-name>/ for deployment.
   title: "Quick Start Express",
   titleTemplate: ':title | QSE',
   description: "A CLI tool to generate Express.js server templates.",
