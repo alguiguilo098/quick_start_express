@@ -7,6 +7,12 @@
 
 A simple CLI tool to generate Express servers from multiple available templates. [View on NPM](https://www.npmjs.com/package/quick_start_express)
 
+✨ Embark on Your Express Journey! ✨
+
+Explore the Interactive Guide 🌐 for step-by-step documentation and unleash the power of automation.
+
+<div align="center"> <a href="https://cse-25.github.io/quick_start_express/"> <img src="https://img.shields.io/badge/Explore%20Docs-Quick%20Start%20Express-blueviolet?style=for-the-badge&logo=rocket" alt="Quick Start Express Documentation"/> </a> </div>
+
 # Commands
 
 ## Version
