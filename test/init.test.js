@@ -216,6 +216,20 @@ describe("normal init with default settings", () => {
     expect(hasNodemon()).toBe(true);
     expect(nodeModulesExist()).toBe(true);
   }, 20000);
+
+  test("basic_ts with nodemon", async () => {
+    const originalHash = computeSHA256Hash(
+      path.join(__dirname, "..", "templates", "basic_ts")
+    );
+    await exec(`node ../../bin/index.js init -t basic_ts`, {
+      cwd: tempDir,
+    });
+    const commandHash = computeSHA256Hash(tempDir);
+    expect(commandHash).toEqual(originalHash);
+
+    expect(hasNodemon()).toBe(true);
+    expect(nodeModulesExist()).toBe(true);
+  }, 20000);
 });
 
 describe("init --remove-deps", () => {
@@ -324,6 +338,23 @@ describe("init --remove-deps", () => {
     );
     await exec(
       `node ../../bin/index.js init -t express_oauth_google --remove-deps`,
+      {
+        cwd: tempDir,
+      }
+    );
+    const commandHash = computeSHA256Hash(tempDir);
+    expect(commandHash).toEqual(originalHash);
+
+    expect(hasNodemon()).toBe(true);
+    expect(nodeModulesExist()).toBe(false);
+  }, 20000);
+
+  test("basic_ts with nodemon without deps installed", async () => {
+    const originalHash = computeSHA256Hash(
+      path.join(__dirname, "..", "templates", "basic_ts")
+    );
+    await exec(
+      `node ../../bin/index.js init -t basic_ts --remove-deps`,
       {
         cwd: tempDir,
       }
@@ -517,6 +548,21 @@ describe("init without nodemon option without installing deps.", () => {
   test("express_oauth_google without nodemon", async () => {
     await exec(
       "node ../../bin/index.js init -t express_oauth_google --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
+    const packageJson = readPackageJson();
+
+    expect(packageJson.scripts.start).not.toContain("nodemon");
+    expect(packageJson.scripts.dev).toBeUndefined();
+
+    if (packageJson.devDependencies) {
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
+    }
+  }, 20000);
+
+  test("basic_ts without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t basic_ts --remove-nodemon --remove-deps",
       { cwd: tempDir }
     );
     const packageJson = readPackageJson();
