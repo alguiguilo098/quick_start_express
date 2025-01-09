@@ -30,6 +30,10 @@ export const commands = {
         flags: "--remove-nodemon",
         description: "Disable hot-reload support using nodemon",
       },
+      {
+        flags: "--remove-deps",
+        description: "Do not install the dependencies",
+      },
     ],
   },
   list: {
@@ -45,6 +49,9 @@ export const commands = {
 export const templates = {
   basic: {
     name: "basic",
+  },
+  basic_ts: {
+    name: "basic_ts",
   },
   express_pg_sequelize: {
     name: "express_pg_sequelize",
@@ -77,5 +84,9 @@ export const questions =
     type: 'confirm',
     message: 'Do you want to remove nodemon?',
     name: 'removeNodemon',
+  },{
+    type: 'confirm',
+    message: 'Do you want to remove dependencies?',
+    name: 'removeDeps',
   }]
   
