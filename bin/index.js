@@ -10,6 +10,7 @@ import chalk from "chalk";
 import { createSpinner } from "nanospinner";
 import { metadata, commands, templates } from "./configs.js";
 import validate from "validate-npm-package-name";
+import { promptUserForServices, generateDockerComposeFile } from "./dockerUtils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -27,7 +28,9 @@ program
   .option(commands.init.options[1].flags, commands.init.options[1].description)
   .option(commands.init.options[2].flags, commands.init.options[2].description)
   .option(commands.init.options[3].flags, commands.init.options[3].description)
+  .option(commands.init.options[4].flags, commands.init.options[4].description)
   .action((options) => {
+    console.log("Parsed options:", options);
     toolIntro();
     initCommand(options);
   });
@@ -135,6 +138,25 @@ async function initCommand(options) {
   );
 
   const destinationPath = path.join(targetDir);
+
+  if (options.docker_compose) {
+    console.log("Entered Docker Options.");
+    try {
+      const services = await promptUserForServices();
+
+      const dockerSpinner = createSpinner(`Creating Docker Compose File with Entered Services...`).start();
+
+      const composeFileContent = generateDockerComposeFile(services);
+      const composeFilePath = path.join(targetDir, "docker-compose.yml");
+
+      fs.writeFileSync(composeFilePath, composeFileContent);
+      dockerSpinner.success({ text: `Docker Compose file generated successfully.` });
+    } catch (error) {
+      console.error(chalk.red("Error generating Docker Compose file:"), error);
+      return;
+    }
+  }
+
 
   const copySpinner = createSpinner("Creating server files...").start();
   try {

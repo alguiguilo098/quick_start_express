@@ -19,6 +19,7 @@
     "commander": "^12.1.0",
     "figlet": "^1.7.0",
     "fs-extra": "^11.2.0",
+    "inquirer": "^12.3.0",
     "nanospinner": "^1.1.0",
     "validate-npm-package-name": "^6.0.0"
   },

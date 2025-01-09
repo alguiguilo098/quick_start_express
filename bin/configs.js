@@ -32,6 +32,10 @@ export const commands = {
         flags: "--remove-deps",
         description: "Do not install the dependencies",
       },
+      {
+        flags: "--docker_compose",
+        description: "Generate a Docker Compose file in the project."
+      }
     ],
   },
   list: {
