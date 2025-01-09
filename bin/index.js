@@ -30,7 +30,6 @@ program
   .option(commands.init.options[3].flags, commands.init.options[3].description)
   .option(commands.init.options[4].flags, commands.init.options[4].description)
   .action((options) => {
-    console.log("Parsed options:", options);
     toolIntro();
     initCommand(options);
   });
@@ -140,7 +139,6 @@ async function initCommand(options) {
   const destinationPath = path.join(targetDir);
 
   if (options.docker_compose) {
-    console.log("Entered Docker Options.");
     try {
       const services = await promptUserForServices();
 
