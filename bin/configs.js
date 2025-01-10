@@ -33,7 +33,7 @@ export const commands = {
         description: "Do not install the dependencies",
       },
       {
-        flags: "--docker_compose",
+        flags: "--docker-compose",
         description: "Generate a Docker Compose file in the project."
       }
     ],

@@ -10,7 +10,7 @@ import chalk from "chalk";
 import { createSpinner } from "nanospinner";
 import { metadata, commands, templates } from "./configs.js";
 import validate from "validate-npm-package-name";
-import { promptUserForServices, generateDockerComposeFile } from "./dockerUtils.js";
+import { promptUserForServices, generateDockerComposeFile } from "../util/docker.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -138,9 +138,9 @@ async function initCommand(options) {
 
   const destinationPath = path.join(targetDir);
 
-  if (options.docker_compose) {
+  if (options.dockerCompose) {
     try {
-      const services = await promptUserForServices();
+      const services = await promptUserForServices(packageName, selectedTemplate);
 
       const dockerSpinner = createSpinner(`Creating Docker Compose File with Entered Services...`).start();
 
