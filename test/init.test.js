@@ -123,17 +123,7 @@ describe("normal init with default settings", () => {
     clearTempDirectory();
   });
 
-  test("no templates passed, should default to basic with nodemon", async () => {
-    const originalHash = computeSHA256Hash(
-      path.join(__dirname, "..", "templates", "basic")
-    );
-    await exec(`node ../../bin/index.js init`, { cwd: tempDir });
-    const commandHash = computeSHA256Hash(tempDir);
-    expect(commandHash).toEqual(originalHash);
-
-    expect(hasNodemon()).toBe(true);
-    expect(nodeModulesExist()).toBe(true);
-  }, 20000);
+  // TODO: Add test for cases where `inquirer` prompts are used for this.
 
   test("basic with nodemon", async () => {
     const originalHash = computeSHA256Hash(
@@ -241,17 +231,7 @@ describe("init --remove-deps", () => {
     clearTempDirectory();
   });
 
-  test("no templates passed, should default to basic with nodemon without deps installed", async () => {
-    const originalHash = computeSHA256Hash(
-      path.join(__dirname, "..", "templates", "basic")
-    );
-    await exec(`node ../../bin/index.js init --remove-deps`, { cwd: tempDir });
-    const commandHash = computeSHA256Hash(tempDir);
-    expect(commandHash).toEqual(originalHash);
-
-    expect(hasNodemon()).toBe(true);
-    expect(nodeModulesExist()).toBe(false);
-  }, 20000);
+  // TODO: Add test for cases where `inquirer` prompts are used for this.
 
   test("basic with nodemon without deps installed", async () => {
     const originalHash = computeSHA256Hash(
@@ -390,7 +370,7 @@ describe("init with custom template name without installing deps", () => {
   test("invalid template name: >214 characters", async () => {
     const longName = "a".repeat(215);
     const { stderr } = await exec(
-      `node ../../bin/index.js init -n ${longName} --remove-deps`,
+      `node ../../bin/index.js init -t basic -n ${longName} --remove-deps`,
       { cwd: tempDir }
     );
     expect(stripAnsi(stderr)).toContain(
@@ -400,7 +380,7 @@ describe("init with custom template name without installing deps", () => {
 
   test("invalid template name: contains uppercase characters", async () => {
     const { stderr } = await exec(
-      `node ../../bin/index.js init -n InvalidName --remove-deps`,
+      `node ../../bin/index.js init -t basic -n InvalidName --remove-deps`,
       { cwd: tempDir }
     );
     expect(stripAnsi(stderr)).toContain(
@@ -410,7 +390,7 @@ describe("init with custom template name without installing deps", () => {
 
   test("invalid template name: contains non URL friendly charcters", async () => {
     const { stderr } = await exec(
-      `node ../../bin/index.js init -n "#invalid name%" --remove-deps`,
+      `node ../../bin/index.js init -t basic -n "#invalid name%" --remove-deps`,
       { cwd: tempDir }
     );
     expect(stripAnsi(stderr)).toContain(
@@ -431,7 +411,7 @@ describe("init with custom template name without installing deps", () => {
 
   test("valid template name: lowercase only", async () => {
     const validName = "validname";
-    await exec(`node ../../bin/index.js init -n ${validName} --remove-deps`, {
+    await exec(`node ../../bin/index.js init -t basic -n ${validName} --remove-deps`, {
       cwd: tempDir,
     });
     verifyPackageName(validName);
@@ -439,11 +419,13 @@ describe("init with custom template name without installing deps", () => {
 
   test("valid template name: URL friendly characters", async () => {
     const validName = "valid-name";
-    await exec(`node ../../bin/index.js init -n ${validName} --remove-deps`, {
+    await exec(`node ../../bin/index.js init -t basic -n ${validName} --remove-deps`, {
       cwd: tempDir,
     });
     verifyPackageName(validName);
   }, 20000);
+
+  // TODO: Add test for cases where `inquirer` prompts are used for this.
 });
 
 // Not installing dependencies for faster tests.
@@ -456,19 +438,7 @@ describe("init without nodemon option without installing deps.", () => {
     clearTempDirectory();
   });
 
-  test("no template passed, should default to basic template without nodemon", async () => {
-    await exec("node ../../bin/index.js init --remove-nodemon --remove-deps", {
-      cwd: tempDir,
-    });
-    const packageJson = readPackageJson();
-
-    expect(packageJson.scripts.start).not.toContain("nodemon");
-    expect(packageJson.scripts.dev).toBeUndefined();
-
-    if (packageJson.devDependencies) {
-      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
-    }
-  }, 20000);
+  // TODO: Add test for cases where `inquirer` prompts are used for this.
 
   test("basic without nodemon", async () => {
     await exec(

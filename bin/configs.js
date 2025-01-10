@@ -1,12 +1,10 @@
-import { type } from "os";
-
 export const metadata = {
   command: "qse",
   name: "Quick Start Express",
   version: "v1.0.6-beta",
   description:
     "A simple CLI tool to generate Express servers from multiple available templates.",
-  oneLineDescription: "A simple Express.js server generator CLI tool.",
+  oneLineDescription: "Welcome to QSE: A simple Express.js server generator CLI tool.",
 };
 
 export const commands = {
@@ -70,23 +68,31 @@ export const templates = {
   },
 };
 
-export const questions = 
-  [{
-    type: 'list',
-  message: 'Select a template',
-  name: 'template',
-  choices: Object.values(templates).map(template => template.name),
-  },{
-    type: 'input',
-    message: 'Enter the name of the package',
-    name: 'name',
-  },{
-    type: 'confirm',
-    message: 'Do you want to remove nodemon?',
-    name: 'removeNodemon',
-  },{
-    type: 'confirm',
-    message: 'Do you want to remove dependencies?',
-    name: 'removeDeps',
-  }]
-  
+export const questions = [
+  {
+    type: "list",
+    message: "Select a template to use (default: basic)",
+    name: "template",
+    choices: Object.values(templates).map((template) => template.name),
+    default: "basic",
+  },
+  {
+    type: "input",
+    message: "Enter a name for your server app (default: qse-server)",
+    name: "name",
+    default: "qse-server",
+  },
+  {
+    type: "confirm",
+    message: "Do you want nodeemon hot-reload support? (default: Yes)",
+    name: "removeNodemon",
+    default: true,
+  },
+  {
+    type: "confirm",
+    message:
+      "Do you wish to install dependencies after template generation? (default: Yes)",
+    name: "removeDeps",
+    default: true,
+  },
+];

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import fs, { remove } from "fs-extra";
+import fs from "fs-extra";
 import path from "path";
 import { fileURLToPath } from "url";
 import { execSync } from "child_process";
@@ -33,16 +33,6 @@ program
     initCommand(options);
   });
 
-// program
-//   .command(commands.init.command)
-//   .description(commands.init.description)
-//   .action(
-//     () => {
-//       toolIntro();
-//       initMenu();
-//     }
-//   );
-
 program
   .command(commands.list.command)
   .description(commands.list.description)
@@ -52,7 +42,8 @@ program
       const commandInfo = commands[cmd];
       if (commandInfo.command) {
         console.log(
-          `- ${commandInfo.command}${commandInfo.description ? ": " + commandInfo.description : ""
+          `- ${commandInfo.command}${
+            commandInfo.description ? ": " + commandInfo.description : ""
           }`
         );
       }
@@ -60,7 +51,8 @@ program
       if (commandInfo.options) {
         commandInfo.options.forEach((option) => {
           console.log(
-            `  (Options: ${option.flags}${option.description ? " - " + option.description : ""
+            `  (Options: ${option.flags}${
+              option.description ? " - " + option.description : ""
             })`
           );
         });
@@ -101,13 +93,12 @@ program
   });
 
 async function initCommand(options) {
-  const selectedTemplate = options.template; // Default to 'basic' if no template is specified
-  const packageName = options.name; // Default to 'quick-start-express-server' if no name is specified
+  const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
+  const packageName = options.name || "qse-server"; // Default to 'qse-server' if no name is specified
   const removeNodemon = options.removeNodemon;
   const removeDependencies = options.removeDeps;
 
-  if (!selectedTemplate && !packageName && !removeNodemon) {
-    console.log("No options provided. Starting interactive mode...");
+  if (!options.template) {
     initMenu();
     return;
   }
@@ -252,24 +243,37 @@ const toolIntro = () => {
     })
   );
 
-  console.log(chalk.green.bold(metadata.oneLineDescription))
-}
+  console.log(chalk.green.bold(metadata.oneLineDescription));
+};
 
-async function initMenu() {
-  const answers = await inquirer.prompt(
-    questions.map((question) => ({
-      type: question.type,
-      message: question.message,
-      name: question.name,
-      choices: Object.keys(templates).map((template) => templates[template].name),
-    }))
-  );
-
-  initCommand({
-    template: answers.template,
-    name: answers.name,
-    removeNodemon: answers.removeNodemon,
-    removeDeps: answers.removeDeps,
-  });
+function initMenu() {
+  console.log();
+  inquirer
+    .prompt(
+      questions.map((question) => ({
+        type: question.type,
+        message: question.message,
+        name: question.name,
+        choices: Object.keys(templates).map(
+          (template) => templates[template].name
+        ),
+      }))
+    )
+    .then((answers) => {
+      console.log();
+      initCommand({
+        template: answers.template,
+        name: answers.name,
+        removeNodemon: !answers.removeNodemon, // Invert the value as we are asking if they want nodemon support.
+        removeDeps: !answers.removeDeps, // Invert the value as we are asking if they want us to install deps.
+      });
+    })
+    .catch((_) => {
+      console.error(
+        chalk.red.bold(
+          "An error occurred while choosing the template.\nExiting..."
+        )
+      );
+    });
 }
 program.parse(process.argv);
