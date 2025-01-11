@@ -136,7 +136,20 @@ async function initCommand(options) {
     templates[selectedTemplate].name
   );
 
+  const dockerTemplate = (selectedTemplate.split("_")[0] === "express" || selectedTemplate.split("_")[0] === "basic") 
+    ? "express" 
+    : selectedTemplate.split("_")[0];
+
+  const dockerTemplatePath = path.join(
+    parentDir,
+    "templates",
+    "Docker",
+    dockerTemplate,
+    "Dockerfile"
+  );
+
   const destinationPath = path.join(targetDir);
+  const dockerFileDestination = path.join(destinationPath, "Dockerfile");
 
   if (options.dockerCompose) {
     try {
@@ -159,6 +172,14 @@ async function initCommand(options) {
   const copySpinner = createSpinner("Creating server files...").start();
   try {
     await fs.copy(templatePath, destinationPath);
+    if(options.dockerCompose){
+      try {
+        await fs.copyFile(dockerTemplatePath, dockerFileDestination);
+      } catch (error) {
+        copySpinner.error({ text: "Error creating Dockerfile.\n" });
+        console.error(error.message);
+      }
+    }
 
     copySpinner.success({ text: "Created server files successfully." });
 
