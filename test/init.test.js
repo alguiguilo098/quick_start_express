@@ -147,6 +147,20 @@ describe("normal init with default settings", () => {
     expect(nodeModulesExist()).toBe(true);
   }, 20000);
 
+  test("express_pg with nodemon", async () => {
+    const originalHash = computeSHA256Hash(
+      path.join(__dirname, "..", "templates", "express_pg")
+    );
+    await exec(`node ../../bin/index.js init -t express_pg`, {
+      cwd: tempDir,
+    });
+    const commandHash = computeSHA256Hash(tempDir);
+    expect(commandHash).toEqual(originalHash);
+
+    expect(hasNodemon()).toBe(true);
+    expect(nodeModulesExist()).toBe(true);
+  }, 20000);
+
   test("express_pg_sequelize with nodemon", async () => {
     const originalHash = computeSHA256Hash(
       path.join(__dirname, "..", "templates", "express_pg_sequelize")
@@ -258,6 +272,20 @@ describe("init --remove-deps", () => {
       path.join(__dirname, "..", "templates", "basic")
     );
     await exec(`node ../../bin/index.js init -t basic --remove-deps`, {
+      cwd: tempDir,
+    });
+    const commandHash = computeSHA256Hash(tempDir);
+    expect(commandHash).toEqual(originalHash);
+
+    expect(hasNodemon()).toBe(true);
+    expect(nodeModulesExist()).toBe(false);
+  }, 20000);
+
+  test("express_pg with nodemon without deps installed", async () => {
+    const originalHash = computeSHA256Hash(
+      path.join(__dirname, "..", "templates", "express_pg")
+    );
+    await exec(`node ../../bin/index.js init -t express_pg --remove-deps`, {
       cwd: tempDir,
     });
     const commandHash = computeSHA256Hash(tempDir);
@@ -473,6 +501,21 @@ describe("init without nodemon option without installing deps.", () => {
   test("basic without nodemon", async () => {
     await exec(
       "node ../../bin/index.js init -t basic --remove-nodemon --remove-deps",
+      { cwd: tempDir }
+    );
+    const packageJson = readPackageJson();
+
+    expect(packageJson.scripts.start).not.toContain("nodemon");
+    expect(packageJson.scripts.dev).toBeUndefined();
+
+    if (packageJson.devDependencies) {
+      expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
+    }
+  }, 20000);
+
+  test("express_pg without nodemon", async () => {
+    await exec(
+      "node ../../bin/index.js init -t express_pg --remove-nodemon --remove-deps",
       { cwd: tempDir }
     );
     const packageJson = readPackageJson();

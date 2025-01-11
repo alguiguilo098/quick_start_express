@@ -51,6 +51,9 @@ export const templates = {
   basic_ts: {
     name: "basic_ts",
   },
+  express_pg: {
+    name: "express_pg",
+  },
   express_pg_sequelize: {
     name: "express_pg_sequelize",
   },

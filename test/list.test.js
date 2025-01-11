@@ -15,6 +15,7 @@ const list = `Available Commands:
 Available Templates:
 - basic
 - basic_ts
+- express_pg
 - express_pg_sequelize
 - express_mysql
 - express_pg_prisma
