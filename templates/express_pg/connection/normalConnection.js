@@ -5,11 +5,11 @@ import { appConfig } from '../config/appConfig.js'
 
 const { Client } = pg
 
-const getClient = () => {
-    let client = null
+const getDb = () => {
+    let db = null
     try {
-        client = new Client(appConfig.db)
-        return client
+        db = new Client(appConfig.db)
+        return db
     } catch (err) {
         const timeStamp = new Date().toLocaleString();
         const errMessage = `[ERROR]: ${timeStamp} - ${err.message}`
@@ -18,4 +18,4 @@ const getClient = () => {
     }
 }
 
-export { getClient }
+export { getDb }

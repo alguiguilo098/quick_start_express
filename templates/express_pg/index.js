@@ -4,7 +4,7 @@ import { appendFileSync } from 'fs'
 import { initLog } from './logs/initLog.js'
 import { sampleRouter } from './router/sampleRouter.js'
 import { appConfig } from './config/appConfig.js'
-import { getClient } from './connection/normalConnection.js'
+import { getDb } from './connection/normalConnection.js'
 import { reInitDb } from './db/reInitDb.js'
 
 const app = express()
@@ -12,8 +12,8 @@ const app = express()
 app.use(appConfig.router.SAMPLE_PREFIX, sampleRouter)
 
 initLog()
-const client = getClient()
-reInitDb(client)
+const db = getDb()
+await reInitDb(db)
 
 app.listen(appConfig.PORT, (err) => {
     if (err) {
