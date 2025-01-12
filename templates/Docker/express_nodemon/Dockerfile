@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json ./
 
 # Install dependencies, including nodemon for development.
-RUN npm install
+RUN npm install nodemon --save-dev && npm install
 
 # Copy the application code to the container.
 COPY . .
@@ -17,5 +17,5 @@ COPY . .
 # Expose the port the app runs on - Customizable.
 EXPOSE 8080
 
-# Command to start the application - Customizable.
-CMD ["npm", "index.js"]
+# Command to start the application with nodemon - Customizable.
+CMD ["npx", "nodemon", "app.js"]

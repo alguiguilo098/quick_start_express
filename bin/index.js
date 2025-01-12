@@ -136,9 +136,13 @@ async function initCommand(options) {
     templates[selectedTemplate].name
   );
 
-  const dockerTemplate = (selectedTemplate.split("_")[0] === "express" || selectedTemplate.split("_")[0] === "basic") 
+  let dockerTemplate = (selectedTemplate.split("_")[0] === "express" || selectedTemplate.split("_")[0] === "basic") 
     ? "express" 
     : selectedTemplate.split("_")[0];
+
+  if(!removeNodemon){
+    dockerTemplate = `${dockerTemplate}_nodemon`;
+  }
 
   const dockerTemplatePath = path.join(
     parentDir,
