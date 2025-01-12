@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 8080
 
 # Command to start the application with nodemon - Customizable.
-CMD ["npx", "nodemon", "index.js"]
+CMD ["npm", "run", "dev"]
