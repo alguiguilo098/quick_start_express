@@ -1,5 +1,4 @@
-import { configDotenv } from 'dotenv'
-configDotenv({ path: "./.env" })
+import "dotenv/config.js";
 
 import express from 'express'
 import { appendFileSync } from 'fs'
