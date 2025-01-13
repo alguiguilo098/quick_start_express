@@ -232,7 +232,7 @@ describe("init --remove-deps", () => {
   });
 
   // TODO: Add test for cases where `inquirer` prompts are used for this.
-
+  
   test("basic with nodemon without deps installed", async () => {
     const originalHash = computeSHA256Hash(
       path.join(__dirname, "..", "templates", "basic")
@@ -439,7 +439,7 @@ describe("init without nodemon option without installing deps.", () => {
   });
 
   // TODO: Add test for cases where `inquirer` prompts are used for this.
-
+  
   test("basic without nodemon", async () => {
     await exec(
       "node ../../bin/index.js init -t basic --remove-nodemon --remove-deps",

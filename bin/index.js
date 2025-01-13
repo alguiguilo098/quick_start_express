@@ -10,7 +10,9 @@ import chalk from "chalk";
 import { createSpinner } from "nanospinner";
 import { metadata, commands, templates, questions } from "./configs.js";
 import validate from "validate-npm-package-name";
-import inquirer from "inquirer";
+import { select, input, confirm } from "@inquirer/prompts";
+
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,8 +44,7 @@ program
       const commandInfo = commands[cmd];
       if (commandInfo.command) {
         console.log(
-          `- ${commandInfo.command}${
-            commandInfo.description ? ": " + commandInfo.description : ""
+          `- ${commandInfo.command}${commandInfo.description ? ": " + commandInfo.description : ""
           }`
         );
       }
@@ -51,8 +52,7 @@ program
       if (commandInfo.options) {
         commandInfo.options.forEach((option) => {
           console.log(
-            `  (Options: ${option.flags}${
-              option.description ? " - " + option.description : ""
+            `  (Options: ${option.flags}${option.description ? " - " + option.description : ""
             })`
           );
         });
@@ -246,34 +246,33 @@ const toolIntro = () => {
   console.log(chalk.green.bold(metadata.oneLineDescription));
 };
 
-function initMenu() {
-  console.log();
-  inquirer
-    .prompt(
-      questions.map((question) => ({
-        type: question.type,
-        message: question.message,
-        name: question.name,
-        choices: Object.keys(templates).map(
-          (template) => templates[template].name
-        ),
-      }))
-    )
-    .then((answers) => {
-      console.log();
-      initCommand({
-        template: answers.template,
-        name: answers.name,
-        removeNodemon: !answers.removeNodemon, // Invert the value as we are asking if they want nodemon support.
-        removeDeps: !answers.removeDeps, // Invert the value as we are asking if they want us to install deps.
-      });
-    })
-    .catch((_) => {
-      console.error(
-        chalk.red.bold(
-          "An error occurred while choosing the template.\nExiting..."
-        )
-      );
-    });
+async function initMenu() {
+
+  const selectedTemplate = await select({
+    message: 'Select a template',
+    choices: Object.values(templates).map((template) => ({
+      name: template.name,
+      value: template.name,
+    })),
+  });
+
+  const packageName = await input({
+    message: 'Enter the name of the package',
+  });
+
+  const removeNodemon = await confirm({
+    message: 'Do you want to remove nodemon?',
+  });
+
+  const removeDeps = await confirm({
+    message: 'Do you want to remove dependencies?',
+  });
+  const options = {
+    template: selectedTemplate,
+    name: packageName,
+    removeNodemon: removeNodemon,
+    removeDeps: removeDeps,
+  };
+  initCommand(options)
 }
 program.parse(process.argv);
