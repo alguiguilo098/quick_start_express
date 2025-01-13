@@ -1,3 +1,6 @@
+import { configDotenv } from 'dotenv'
+configDotenv({ path: "./.env" })
+
 import express, { json } from 'express'
 import helmet from 'helmet'
 import { appendFileSync } from 'fs'

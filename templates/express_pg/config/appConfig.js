@@ -1,22 +1,19 @@
-import { configDotenv } from 'dotenv'
-configDotenv({ path: "./.env" })
-
 const CONCURRENCY_LIMIT = 4;
 const appConfig = {
     PORT: 3000,
     db: {
-        host: process.env.HOST || 'localhost',
-        port: process.env.PORT || 5432,
-        user: process.env.USER || 'postgres',
-        password: process.env.PASSWORD,
-        database: process.env.DATABASE || 'postgres',
+        host: process.env.DB_HOST || 'localhost',
+        port: process.env.DB_PORT || 5432,
+        user: process.env.DB_USER || 'postgres',
+        password: process.env.DB_PASSWORD || 'password',
+        database: process.env.DB_NAME || 'postgres',
     },
     pool_db: {
-        host:  process.env.HOST || 'localhost',
-        port: process.env.PORT || 5432,
-        user:  process.env.USER || 'postgres',
-        password:  process.env.PASSWORD,
-        database: process.env.DATABASE || 'postgres',
+        host:  process.env.DB_HOST || 'localhost',
+        port: process.env.DB_PORT || 5432,
+        user:  process.env.DB_USER || 'postgres',
+        password:  process.env.DB_PASSWORD || 'password',
+        database: process.env.DB_NAME || 'postgres',
         max: CONCURRENCY_LIMIT,
         idleTimeoutMillis: 30000,
         connectionTimeoutMillis: 2000,
