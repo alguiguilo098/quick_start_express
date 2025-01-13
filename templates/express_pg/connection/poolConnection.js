@@ -1,18 +1,18 @@
-import pg from 'pg'
-import { appendFileSync } from 'fs'
+import pg from "pg";
+import { appendFileSync } from "fs";
 
-import { appConfig } from '../config/appConfig.js'
+import { appConfig } from "../config/appConfig.js";
 
-const { Pool } = pg
+const { Pool } = pg;
 
-let pool = null
+let pool = null;
 try {
-    pool = new Pool(appConfig.pool_db)
+    pool = new Pool(appConfig.pool_db);
 } catch (err) {
     const timeStamp = new Date().toLocaleString();
-    const errMessage = `[ERROR]: ${timeStamp} - ${err.message}`
+    const errMessage = `[ERROR]: ${timeStamp} - ${err.message}`;
     console.error(errMessage);
-    appendFileSync('./logs/connection/normalConnection.log', `${errMessage}\n`);
+    appendFileSync("./logs/connection/normalConnection.log", `${errMessage}\n`);
 }
 
-export { pool }
+export { pool };

@@ -23,9 +23,9 @@ Available Templates:
 - express_oauth_google\n`;
 
 describe("List Command", () => {
-  test("list", async () => {
-    const { stdout, stderr } = await exec("node bin/index.js list");
-    expect(stdout).toEqual(list);
-    expect(stderr).toEqual("");
-  });
+    test("list", async () => {
+        const { stdout, stderr } = await exec("node bin/index.js list");
+        expect(stdout).toEqual(list);
+        expect(stderr).toEqual("");
+    });
 });
