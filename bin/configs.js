@@ -67,32 +67,3 @@ export const templates = {
     name: "express_oauth_google",
   },
 };
-
-export const questions = [
-  {
-    type: "list",
-    message: "Select a template to use (default: basic)",
-    name: "template",
-    choices: Object.values(templates).map((template) => template.name),
-    default: "basic",
-  },
-  {
-    type: "input",
-    message: "Enter a name for your server app (default: qse-server)",
-    name: "name",
-    default: "qse-server",
-  },
-  {
-    type: "confirm",
-    message: "Do you want nodeemon hot-reload support? (default: Yes)",
-    name: "removeNodemon",
-    default: true,
-  },
-  {
-    type: "confirm",
-    message:
-      "Do you wish to install dependencies after template generation? (default: Yes)",
-    name: "removeDeps",
-    default: true,
-  },
-];

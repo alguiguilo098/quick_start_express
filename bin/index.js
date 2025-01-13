@@ -8,11 +8,9 @@ import { execSync } from "child_process";
 import figlet from "figlet";
 import chalk from "chalk";
 import { createSpinner } from "nanospinner";
-import { metadata, commands, templates, questions } from "./configs.js";
+import { metadata, commands, templates } from "./configs.js";
 import validate from "validate-npm-package-name";
-import { select, input, confirm } from "@inquirer/prompts";
-
-
+import { initMenu } from "./util/menu.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -99,7 +97,7 @@ async function initCommand(options) {
   const removeDependencies = options.removeDeps;
 
   if (!options.template) {
-    initMenu();
+    initMenu(initCommand);
     return;
   }
 
@@ -246,33 +244,4 @@ const toolIntro = () => {
   console.log(chalk.green.bold(metadata.oneLineDescription));
 };
 
-async function initMenu() {
-
-  const selectedTemplate = await select({
-    message: 'Select a template',
-    choices: Object.values(templates).map((template) => ({
-      name: template.name,
-      value: template.name,
-    })),
-  });
-
-  const packageName = await input({
-    message: 'Enter the name of the package',
-  });
-
-  const removeNodemon = await confirm({
-    message: 'Do you want to remove nodemon?',
-  });
-
-  const removeDeps = await confirm({
-    message: 'Do you want to remove dependencies?',
-  });
-  const options = {
-    template: selectedTemplate,
-    name: packageName,
-    removeNodemon: removeNodemon,
-    removeDeps: removeDeps,
-  };
-  initCommand(options)
-}
 program.parse(process.argv);
