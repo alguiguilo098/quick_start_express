@@ -22,5 +22,8 @@ jobs:
             - name: Install Dependencies.
               run: npm i
 
+            - name: Check code formatting.
+              run: npx prettier . --check
+
             - name: Run Jest tests.
               run: npm test
