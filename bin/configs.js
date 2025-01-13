@@ -9,65 +9,65 @@ export const metadata = {
 };
 
 export const commands = {
-      version: {
-            command: "-v, --version",
-            description: "Prints current qse version",
-      },
-      init: {
-            command: "init",
-            description: "Initialize a new Express server.",
-            options: [
-                  {
-                        flags: "-t, --template <template>",
-                        description: "Specify template to use",
-                  },
-                  {
-                        flags: "-n, --name <name>",
-                        description: "Specify the name of the package",
-                  },
-                  {
-                        flags: "--remove-nodemon",
-                        description: "Disable hot-reload support using nodemon",
-                  },
-                  {
-                        flags: "--remove-deps",
-                        description: "Do not install the dependencies",
-                  },
-            ],
-      },
-      list: {
-            command: "list",
-            description: "List all available commands and options.",
-      },
-      clear: {
-            command: "clear",
-            description: "Clear the directory.",
-      },
+    version: {
+        command: "-v, --version",
+        description: "Prints current qse version",
+    },
+    init: {
+        command: "init",
+        description: "Initialize a new Express server.",
+        options: [
+            {
+                flags: "-t, --template <template>",
+                description: "Specify template to use",
+            },
+            {
+                flags: "-n, --name <name>",
+                description: "Specify the name of the package",
+            },
+            {
+                flags: "--remove-nodemon",
+                description: "Disable hot-reload support using nodemon",
+            },
+            {
+                flags: "--remove-deps",
+                description: "Do not install the dependencies",
+            },
+        ],
+    },
+    list: {
+        command: "list",
+        description: "List all available commands and options.",
+    },
+    clear: {
+        command: "clear",
+        description: "Clear the directory.",
+    },
 };
 
 export const templates = {
-      basic: {
-            name: "basic",
-      },
-      basic_ts: {
-            name: "basic_ts",
-      },
+    basic: {
+        name: "basic",
+    },
+    basic_ts: {
+        name: "basic_ts",
+    },
     express_pg: {
         name: "express_pg",
     },
-      express_pg_sequelize: {
-            name: "express_pg_sequelize",
-      },
-      express_mysql: {
-            name: "express_mysql",
-      },
-      express_pg_prisma: {
-            name: "express_pg_prisma",
-      },
-      express_oauth_microsoft: {
-            name: "express_oauth_microsoft",
-      },
-      express_oauth_google: {
-            name: "express_oauth_google",
-      },
+    express_pg_sequelize: {
+        name: "express_pg_sequelize",
+    },
+    express_mysql: {
+        name: "express_mysql",
+    },
+    express_pg_prisma: {
+        name: "express_pg_prisma",
+    },
+    express_oauth_microsoft: {
+        name: "express_oauth_microsoft",
+    },
+    express_oauth_google: {
+        name: "express_oauth_google",
+    },
 };
