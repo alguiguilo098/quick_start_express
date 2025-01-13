@@ -137,6 +137,20 @@ describe("normal init with default settings", () => {
         expect(nodeModulesExist()).toBe(true);
     }, 20000);
 
+    test("express_pg with nodemon", async () => {
+        const originalHash = computeSHA256Hash(
+            path.join(__dirname, "..", "templates", "express_pg"),
+        );
+        await exec(`node ../../bin/index.js init -t express_pg`, {
+            cwd: tempDir,
+        });
+        const commandHash = computeSHA256Hash(tempDir);
+        expect(commandHash).toEqual(originalHash);
+
+        expect(hasNodemon()).toBe(true);
+        expect(nodeModulesExist()).toBe(true);
+    }, 20000);
+
     test("express_pg_sequelize with nodemon", async () => {
         const originalHash = computeSHA256Hash(
             path.join(__dirname, "..", "templates", "express_pg_sequelize"),
@@ -357,6 +371,15 @@ describe("init with custom template name without installing deps", () => {
         clearTempDirectory();
     });
 
+    test("invalid template name passed", async () => {
+        const { stdout, stderr } = await exec(
+            `node ../../bin/index.js init -t invalid_template --remove-deps`,
+            { cwd: tempDir },
+        );
+        expect(stripAnsi(stderr)).toContain(
+            `Template invalid_template does not exist. To see available templates use "qse list".`,
+        );
+    });
     test("invalid template name passed", async () => {
         const { stdout, stderr } = await exec(
             `node ../../bin/index.js init -t invalid_template --remove-deps`,

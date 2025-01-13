@@ -8,7 +8,7 @@ on:
     workflow_dispatch:
 
 jobs:
-    run_jest_tests:
+    run_tests:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout the repository.
@@ -22,5 +22,8 @@ jobs:
             - name: Install Dependencies.
               run: npm i
 
+            - name: Run code formatting Prettier tests.
+              run: npm run test:format
+
             - name: Run Jest tests.
-              run: npm test
+              run: npm run test

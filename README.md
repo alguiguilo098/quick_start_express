@@ -5,6 +5,8 @@
 
 # Quick Start Express
 
+<a href="https://cse-25.github.io/quick_start_express/"> <img src="https://img.shields.io/badge/Explore%20Docs-Quick%20Start%20Express-blueviolet?style=for-the-badge&logo=rocket" alt="Quick Start Express Documentation"/> </a>
+
 A simple CLI tool to generate Express servers from multiple available templates. [View on NPM](https://www.npmjs.com/package/quick_start_express)
 
 # Commands
@@ -38,7 +40,7 @@ qse list
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/22b633a1-91c2-4150-bd41-7ed77b70db9c" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/7ad29ff0-97ad-416a-9392-9992ad272a20" width="800px"/>
 </div>
 
 ## Init
