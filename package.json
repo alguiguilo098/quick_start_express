@@ -9,7 +9,8 @@
         "test": "node --experimental-vm-modules --disable-warning=ExperimentalWarning node_modules/jest/bin/jest.js --verbose",
         "docs:dev": "vitepress dev docs",
         "docs:build": "vitepress build docs",
-        "docs:preview": "vitepress preview docs"
+        "docs:preview": "vitepress preview docs",
+        "test:format": "node --experimental-vm-modules --disable-warning=ExperimentalWarning node_modules/prettier/bin/prettier.cjs . --check"
     },
     "author": "Abhinav Ramakrishnan, Ashwin Narayanan S",
     "license": "ISC",
