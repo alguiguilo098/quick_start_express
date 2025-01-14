@@ -4,11 +4,11 @@ import { templates } from "../bin/configs.js";
 async function promptCacheService(packageName) {
   // Predefined list of cache images
   const cacheImages = [
-    "redis:latest",          // Latest Redis
-    "redis:6.2",             // Specific Redis version
-    "redis:7.0",             // Another Redis version
-    "memcached:latest",      // Memcached
-    "amazon/aws-elasticache:redis" // AWS ElastiCache Redis-compatible image
+    "redis:latest",
+    "redis:6.2",
+    "redis:7.0",
+    "memcached:latest",
+    "amazon/aws-elasticache:redis"
   ];
   
   const image = await select({
@@ -21,13 +21,13 @@ async function promptCacheService(packageName) {
     case "redis:latest":
     case "redis:6.2":
     case "redis:7.0":
-      ports = ["6379:6379"]; // Redis uses the same standard port across versions
+      ports = ["6379:6379"];
       break;
     case "memcached:latest":
       ports = ["11211:11211"];
       break;
     case "amazon/aws-elasticache:redis":
-      ports = ["6379:6379"]; // AWS Redis uses the same standard Redis port
+      ports = ["6379:6379"];
       break;
     default:
       throw new Error("Cache Image not Found!");
