@@ -7,6 +7,7 @@ const list = `Available Commands:
 - init: Initialize a new Express server.
   (Options: -t, --template <template> - Specify template to use)
   (Options: -n, --name <name> - Specify the name of the package)
+  (Options: --docker-compose - Generate a Docker Compose file in the project.)
   (Options: --remove-nodemon - Disable hot-reload support using nodemon)
   (Options: --remove-deps - Do not install the dependencies)
 - list: List all available commands and options.
