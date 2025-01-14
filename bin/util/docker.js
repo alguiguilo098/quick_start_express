@@ -46,7 +46,7 @@ export async function getServicesData(packageName, selectedTemplate) {
     const templateData = templates[selectedTemplate];
     const services = [];
 
-    console.log(chalk.bold(chalk.green("\nDocker Compose Configuration\n")));
+    console.log(chalk.bold(chalk.green("\nDocker Compose Configuration")));
 
     // App service configuration.
     const appService = {
@@ -84,12 +84,13 @@ export async function getServicesData(packageName, selectedTemplate) {
 }
 
 // Generates the File content for docker-compose.yml using the services data
-export function generateDockerComposeFile(services) {
+export function generateDockerComposeFile(services, packageName) {
     const compose = {
         version: "3.8",
         services: {},
     };
 
+    let appServiceName = "";
     services.forEach((service) => {
         const serviceConfig = {
             container_name: service.containerName,
@@ -99,6 +100,7 @@ export function generateDockerComposeFile(services) {
 
         if (service.build) {
             serviceConfig.build = { context: "." }; // Use Dockerfile for building the image
+            appServiceName = service.name;
         } else {
             serviceConfig.image = service.image;
         }
@@ -107,28 +109,49 @@ export function generateDockerComposeFile(services) {
         compose.services[service.name] = serviceConfig;
     });
 
+    // Add depends_on for the app service
+    if (appServiceName) {
+        const dependencies = Object.keys(compose.services).filter(
+            (name) => name !== appServiceName
+        );
+        if (dependencies.length > 0) {
+            compose.services[appServiceName].depends_on = dependencies;
+        }
+    }
+
     const yaml = `
-version: '${compose.version}'
+name: ${packageName}
 services:
 ${Object.entries(compose.services)
-    .map(([name, config]) => {
-        const build = config.build
-            ? `      build:\n        context: ${config.build.context}`
-            : `      image: ${config.image}`;
-        const ports = config.ports
-            ? `      ports:\n${config.ports.map((port) => `        - "${port}"`).join("\n")}`
-            : "";
-        const envFile = config.env_file
-            ? `      env_file:\n${config.env_file.map((file) => `        - ${file}`).join("\n")}`
-            : "";
-        return `  ${name}:
+        .map(([name, config]) => {
+            const build = config.build
+                ? `      build:\n        context: ${config.build.context}`
+                : `      image: ${config.image}`;
+            const ports = config.ports
+                ? `      ports:\n${config.ports
+                    .map((port) => `        - "${port}"`)
+                    .join("\n")}`
+                : "";
+            const envFile = config.env_file
+                ? `      env_file:\n${config.env_file
+                    .map((file) => `        - ${file}`)
+                    .join("\n")}`
+                : "";
+            const dependsOn = config.depends_on
+                ? `      depends_on:\n${config.depends_on
+                    .map((dep) => `        - ${dep}`)
+                    .join("\n")}`
+                : "";
+
+            return `  ${name}:
 ${build}
       container_name: ${config.container_name}
 ${ports}
 ${envFile}
+${dependsOn}
       restart: ${config.restart}`;
-    })
-    .join("\n\n")}`;
+        })
+        .join("\n\n")}`;
 
     return yaml.trim();
 }

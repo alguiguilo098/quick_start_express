@@ -189,7 +189,7 @@ async function initCommand(options) {
                 `Creating Docker Compose File with Entered Services...`,
             ).start();
 
-            const composeFileContent = generateDockerComposeFile(serviceData);
+            const composeFileContent = generateDockerComposeFile(serviceData, packageName);
             const composeFilePath = path.join(targetDir, "docker-compose.yml");
 
             fs.writeFileSync(composeFilePath, composeFileContent);
