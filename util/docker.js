@@ -1,137 +1,88 @@
-import { confirm, input } from "@inquirer/prompts";
-
-function validatePortFormat(input) {
-  const validFormat = /^\d+:\d+$/;
-  return validFormat.test(input) || "Ports must be in the format hostPort:containerPort.";
-}
-
-async function promptForEnvironmentVariables() {
-  const addEnvironmentVariables = await confirm({
-    message: "Do you want to add environment variables?",
-    default: false,
-  });
-
-  if (addEnvironmentVariables) {
-    const variableInput = await input({
-      message: "Enter environment variables separated by commas (e.g., VAR1=DB_USER, VAR2=DB_PASS):",
-      validate: (input) => {
-        // Regex Expression to Evaluate User Input in Format: VAR1=DB_USER, VAR2=DB_PASS.
-        const validFormat = /^([a-zA-Z_][a-zA-Z0-9_]*=[a-zA-Z_][a-zA-Z0-9_]*)(,\s*[a-zA-Z_][a-zA-Z0-9_]*=[a-zA-Z_][a-zA-Z0-9_]*)*$/;
-        return (
-          validFormat.test(input) ||
-          "Input must be in the format VAR1=DB_USER, VAR2=DB_PASS (comma-separated pairs)."
-        );
-      },
-    });
-
-    const environmentVariables = {};
-    variableInput.split(",").forEach((pair) => {
-      const [key, envVariable] = pair.split("=").map((item) => item.trim());
-      environmentVariables[key] = envVariable;
-    });
-
-    return environmentVariables;
-  }
-
-  return undefined;
-}
-
-async function promptAppService(packageName) {
-  const image = await input({
-    message: "Enter the Docker image for the app service (default: node:20-alpine):",
-    default: "node:20-alpine",
-  });
-
-  const ports = await input({
-    message: "Enter the ports to expose for the app service (default: 8080:8080):",
-    default: "8080:8080",
-    validate: validatePortFormat,
-  });
-
-  const environment = await promptForEnvironmentVariables();
-
-  return {
-    name: packageName,
-    image,
-    containerName: `${packageName}_container`,
-    ports: [ports],
-    environment,
-  };
-}
-
-async function promptDbService(packageName) {
-  const image = await input({
-    message: "Enter the Docker image for the database (default: mysql:latest):",
-    default: "mysql:latest",
-  });
-
-  const ports = await input({
-    message: "Enter the ports to expose for the database service (default: 5432:5432):",
-    default: "5432:5432",
-    validate: validatePortFormat,
-  });
-
-  const environment = await promptForEnvironmentVariables();
-
-  return {
-    name: `${packageName}_db`,
-    image,
-    containerName: `${packageName}_db_container`,
-    ports: [ports],
-    environment,
-  };
-}
+import { confirm, select } from "@inquirer/prompts";
+import { templates } from "../bin/configs.js";
 
 async function promptCacheService(packageName) {
-  const image = await input({
-    message: "Enter the Docker image for the cache service (default: redis:latest):",
-    default: "redis:latest",
+  // Predefined list of cache images
+  const cacheImages = [
+    "redis:latest",          // Latest Redis
+    "redis:6.2",             // Specific Redis version
+    "redis:7.0",             // Another Redis version
+    "memcached:latest",      // Memcached
+    "amazon/aws-elasticache:redis" // AWS ElastiCache Redis-compatible image
+  ];
+  
+  const image = await select({
+    message: "Select the Docker image for the cache service:",
+    choices: cacheImages.map((img) => ({ name: img, value: img })),
   });
-
-  const ports = await input({
-    message: "Enter the ports to expose for the cache service (default: 6379:6379):",
-    default: "6379:6379",
-    validate: validatePortFormat,
-  });
-
-  const environment = await promptForEnvironmentVariables();
+  
+  let ports;
+  switch (image) {
+    case "redis:latest":
+    case "redis:6.2":
+    case "redis:7.0":
+      ports = ["6379:6379"]; // Redis uses the same standard port across versions
+      break;
+    case "memcached:latest":
+      ports = ["11211:11211"];
+      break;
+    case "amazon/aws-elasticache:redis":
+      ports = ["6379:6379"]; // AWS Redis uses the same standard Redis port
+      break;
+    default:
+      throw new Error("Cache Image not Found!");
+  }  
 
   return {
     name: `${packageName}_cache`,
-    image,
+    image: image,
     containerName: `${packageName}_cache_container`,
-    ports: [ports],
-    environment,
+    ports: ports
   };
 }
 
-export async function promptUserForServices(packageName, selectedTemplate) {
+export async function getServicesData(packageName, selectedTemplate) {
+  const templateData = templates[selectedTemplate];
   const services = [];
 
   console.log("\n");
-  services.push(await promptAppService(packageName));
-  console.log("\n");
 
+  // App service configuration
+  const appService = {
+    name: packageName,
+    containerName: `${packageName}_container`,
+    build: true,
+    ports: [templateData.serverPort]
+  };
+
+  services.push(appService);
+
+  // Database service configuration
   if (isDBRequired(selectedTemplate)) {
-    services.push(await promptDbService(packageName));
+    const dbService = {
+      name: `${packageName}_db`,
+      image: templateData.dbDockerImage,
+      containerName: `${packageName}_db_container`,
+      ports: [templateData.dbPort]
+    };
+    services.push(dbService);
   }
-  console.log("\n");
 
+  // Cache service configuration
   const addCacheService = await confirm({
     message: "Do you want to add a cache service?",
     default: false,
   });
 
   if (addCacheService) {
-    console.log("Configuring cache service...");
     services.push(await promptCacheService(packageName));
   }
-  console.log("\n");
 
+  console.log("\n");
   return services;
 }
 
-// Generates the File content for docker_compose.yml using the services data.
+// Generates the File content for docker-compose.yml using the services data
 export function generateDockerComposeFile(services) {
   const compose = {
     version: "3.8",
@@ -139,17 +90,20 @@ export function generateDockerComposeFile(services) {
   };
 
   services.forEach((service) => {
-    compose.services[service.name] = {
-      image: service.image,
+    const serviceConfig = {
       container_name: service.containerName,
-      ports: service.ports.length > 0 ? service.ports : undefined,
-      environment: service.environment
-        ? Object.entries(service.environment).map(
-            ([key, envVariable]) => `${key}=\${${envVariable}}`
-          )
-        : undefined,
+      ports: service.ports?.length > 0 ? service.ports : undefined,
       restart: "on-failure",
     };
+
+    if (service.build) {
+      serviceConfig.build = { context: "." }; // Use Dockerfile for building the image
+    } else {
+      serviceConfig.image = service.image;
+    }
+
+    serviceConfig.env_file = [".env"];
+    compose.services[service.name] = serviceConfig;
   });
 
   const yaml = `
@@ -157,17 +111,14 @@ version: '${compose.version}'
 services:
 ${Object.entries(compose.services)
   .map(([name, config]) => {
-    const ports = config.ports
-      ? `      ports:\n${config.ports.map((port) => `        - "${port}"`).join("\n")}`
-      : "";
-    const environment = config.environment
-      ? `      environment:\n${config.environment.map((env) => `        - ${env}`).join("\n")}`
-      : "";
+    const build = config.build ? `      build:\n        context: ${config.build.context}` : `      image: ${config.image}`;
+    const ports = config.ports ? `      ports:\n${config.ports.map((port) => `        - "${port}"`).join("\n")}` : "";
+    const envFile = config.env_file ? `      env_file:\n${config.env_file.map((file) => `        - ${file}`).join("\n")}` : "";
     return `  ${name}:
-      image: ${config.image}
+${build}
       container_name: ${config.container_name}
 ${ports}
-${environment}
+${envFile}
       restart: ${config.restart}`;
   })
   .join("\n\n")}`;
