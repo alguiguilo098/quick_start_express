@@ -42,7 +42,7 @@ program
     )
     .option(
         commands.init.options[4].flags,
-        commands.init.options[4].description
+        commands.init.options[4].description,
     )
     .action((options) => {
         toolIntro();
@@ -150,61 +150,72 @@ async function initCommand(options) {
 
     console.log("Starting server initialization...");
 
-  const targetDir = process.cwd();
-  const templatePath = path.join(
-    parentDir,
-    "templates",
-    templates[selectedTemplate].name
-  );
+    const targetDir = process.cwd();
+    const templatePath = path.join(
+        parentDir,
+        "templates",
+        templates[selectedTemplate].name,
+    );
 
-  let dockerTemplate = (selectedTemplate.split("_")[0] === "express" || selectedTemplate.split("_")[0] === "basic") 
-    ? "express" 
-    : selectedTemplate.split("_")[0];
+    let dockerTemplate =
+        selectedTemplate.split("_")[0] === "express" ||
+        selectedTemplate.split("_")[0] === "basic"
+            ? "express"
+            : selectedTemplate.split("_")[0];
 
-  if(!removeNodemon){
-    dockerTemplate = `${dockerTemplate}_nodemon`;
-  }
+    if (!removeNodemon) {
+        dockerTemplate = `${dockerTemplate}_nodemon`;
+    }
 
-  const dockerTemplatePath = path.join(
-    parentDir,
-    "templates",
-    "Docker",
-    dockerTemplate,
-    "Dockerfile"
-  );
+    const dockerTemplatePath = path.join(
+        parentDir,
+        "templates",
+        "Docker",
+        dockerTemplate,
+        "Dockerfile",
+    );
 
-  const destinationPath = path.join(targetDir);
-  const dockerFileDestination = path.join(destinationPath, "Dockerfile");
+    const destinationPath = path.join(targetDir);
+    const dockerFileDestination = path.join(destinationPath, "Dockerfile");
 
-  if (options.dockerCompose) {
+    if (options.dockerCompose) {
+        try {
+            const serviceData = await getServicesData(
+                packageName,
+                selectedTemplate,
+            );
+
+            const dockerSpinner = createSpinner(
+                `Creating Docker Compose File with Entered Services...`,
+            ).start();
+
+            const composeFileContent = generateDockerComposeFile(serviceData);
+            const composeFilePath = path.join(targetDir, "docker-compose.yml");
+
+            fs.writeFileSync(composeFilePath, composeFileContent);
+            dockerSpinner.success({
+                text: `Docker Compose file generated successfully.`,
+            });
+        } catch (error) {
+            console.error(
+                chalk.red("Error generating Docker Compose file:"),
+                error,
+            );
+            return;
+        }
+    }
+
+    const copySpinner = createSpinner("Creating server files...").start();
     try {
-      const serviceData = await getServicesData(packageName, selectedTemplate);
-
-      const dockerSpinner = createSpinner(`Creating Docker Compose File with Entered Services...`).start();
-
-      const composeFileContent = generateDockerComposeFile(serviceData);
-      const composeFilePath = path.join(targetDir, "docker-compose.yml");
-
-      fs.writeFileSync(composeFilePath, composeFileContent);
-      dockerSpinner.success({ text: `Docker Compose file generated successfully.` });
-    } catch (error) {
-      console.error(chalk.red("Error generating Docker Compose file:"), error);
-      return;
-    }
-  }
-
-
-  const copySpinner = createSpinner("Creating server files...").start();
-  try {
-    await fs.copy(templatePath, destinationPath);
-    if(options.dockerCompose){
-      try {
-        await fs.copyFile(dockerTemplatePath, dockerFileDestination);
-      } catch (error) {
-        copySpinner.error({ text: "Error creating Dockerfile.\n" });
-        console.error(error.message);
-      }
-    }
+        await fs.copy(templatePath, destinationPath);
+        if (options.dockerCompose) {
+            try {
+                await fs.copyFile(dockerTemplatePath, dockerFileDestination);
+            } catch (error) {
+                copySpinner.error({ text: "Error creating Dockerfile.\n" });
+                console.error(error.message);
+            }
+        }
 
         copySpinner.success({ text: "Created server files successfully." });
 

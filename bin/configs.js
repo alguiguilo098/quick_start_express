@@ -25,8 +25,8 @@ export const commands = {
                 description: "Specify the name of the package",
             },
             {
-              flags: "--docker-compose",
-              description: "Generate a Docker Compose file in the project."
+                flags: "--docker-compose",
+                description: "Generate a Docker Compose file in the project.",
             },
             {
                 flags: "--remove-nodemon",
