@@ -1,8 +1,9 @@
 import { confirm, select } from "@inquirer/prompts";
 import { templates } from "../configs.js";
+import chalk from "chalk";
 
 async function promptCacheService(packageName) {
-    // Predefined list of cache images
+    // Predefined list of cache images.
     const cacheImages = [
         "redis:latest",
         "redis:6.2",
@@ -45,9 +46,9 @@ export async function getServicesData(packageName, selectedTemplate) {
     const templateData = templates[selectedTemplate];
     const services = [];
 
-    console.log("\n");
+    console.log(chalk.bold(chalk.green("\nDocker Compose Configuration\n")));
 
-    // App service configuration
+    // App service configuration.
     const appService = {
         name: packageName,
         containerName: `${packageName}_container`,
@@ -78,7 +79,7 @@ export async function getServicesData(packageName, selectedTemplate) {
         services.push(await promptCacheService(packageName));
     }
 
-    console.log("\n");
+    console.log();
     return services;
 }
 
