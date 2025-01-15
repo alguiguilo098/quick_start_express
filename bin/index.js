@@ -316,6 +316,12 @@ async function initCommand(options) {
             chalk.white.bold("npm run dev"),
         );
     }
+    if(options.dockerCompose) {
+        console.log(
+            chalk.yellow("Container Orchestration:"),
+            chalk.white.bold("docker-compose up -d")
+        );
+    }
 }
 
 const toolIntro = () => {
