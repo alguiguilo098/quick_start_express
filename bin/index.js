@@ -189,7 +189,10 @@ async function initCommand(options) {
                 `Creating Docker Compose File with Entered Services...`,
             ).start();
 
-            const composeFileContent = generateDockerComposeFile(serviceData, packageName);
+            const composeFileContent = generateDockerComposeFile(
+                serviceData,
+                packageName,
+            );
             const composeFilePath = path.join(targetDir, "docker-compose.yml");
 
             fs.writeFileSync(composeFilePath, composeFileContent);
@@ -316,10 +319,10 @@ async function initCommand(options) {
             chalk.white.bold("npm run dev"),
         );
     }
-    if(options.dockerCompose) {
+    if (options.dockerCompose) {
         console.log(
-            chalk.yellow("Container Orchestration:"),
-            chalk.white.bold("docker-compose up -d")
+            chalk.yellow("To start your services with Docker Compose:"),
+            chalk.white.bold("docker compose up -d"),
         );
     }
 }
