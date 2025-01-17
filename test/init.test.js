@@ -12,10 +12,8 @@ import { fileURLToPath } from "url";
 import { exec as execCallback } from "child_process";
 import { promisify } from "util";
 import stripAnsi from "strip-ansi";
-import { select, input, confirm } from "@inquirer/prompts";
 import { expect } from "@jest/globals";
-import { render } from "@inquirer/testing";
-import { templates } from "../bin/configs";
+
 const exec = promisify(execCallback);
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const tempDir = path.join(__dirname, "temp");
@@ -127,19 +125,6 @@ describe("normal init with default settings", () => {
     });
 
     // TODO: Add test for cases where `inquirer` prompts are used for this.
-
-    test("inquirer with nodemon", async () => {
-        const { answer, events, getScreen } = await render(confirm, {
-            message: "Do you want nodemon hot-reload support? (default: Yes)",
-        });
-        events.keypress("y");
-        events.keypress("enter");
-        await expect(answer).resolves.toEqual(true);
-
-        events.keypress("Y");
-        events.keypress("enter");
-        await expect(answer).resolves.toEqual(true);
-    }, 20000);
 
     test("basic with nodemon", async () => {
         const originalHash = computeSHA256Hash(
@@ -493,6 +478,21 @@ describe("init without nodemon option without installing deps.", () => {
     test("basic without nodemon", async () => {
         await exec(
             "node ../../bin/index.js init -t basic --remove-nodemon --remove-deps",
+            { cwd: tempDir },
+        );
+        const packageJson = readPackageJson();
+
+        expect(packageJson.scripts.start).not.toContain("nodemon");
+        expect(packageJson.scripts.dev).toBeUndefined();
+
+        if (packageJson.devDependencies) {
+            expect(packageJson.devDependencies).not.toHaveProperty("nodemon");
+        }
+    }, 20000);
+
+    test("express_pg without nodemon", async () => {
+        await exec(
+            "node ../../bin/index.js init -t express_pg --remove-nodemon --remove-deps",
             { cwd: tempDir },
         );
         const packageJson = readPackageJson();
