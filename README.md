@@ -47,11 +47,37 @@ qse list
 
 ### Initialize a new Express.js server.
 
+Run the below command after installing the tool in the directory in which you want the template to be created.
+
 ```bash
 qse init
 ```
 
-### Output
+Select a template
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/08f2cf16-0de5-456a-8fc3-00ca295ff142" width="800px"/>
+</div>
+
+Customize Name, Answer a few questions to customize your template
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/b0278466-022b-469b-83ef-5f692f2b1bd9" width="800px"/>
+</div>
+
+#### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/d965b1c9-e872-4fda-8f6c-096e1891ca43" width="800px"/>
+</div>
+
+### Initialize an Express.js server template (directly with flags).
+
+```bash
+qse init -t template_name
+```
+
+#### Output
 
 <div align="center">
    <img src="https://github.com/user-attachments/assets/84e2fc79-9b88-4817-baf4-56845d5ee756" width="800px"/>
@@ -60,7 +86,7 @@ qse init
 ### Initialize without nodemon.
 
 ```bash
-qse init --remove-nodemon
+qse init -t template_name --remove-nodemon
 ```
 
 ### Output
@@ -74,13 +100,13 @@ qse init --remove-nodemon
 Initialize a new Express.js server without installing dependencies.
 
 ```bash
-qse init --remove-deps
+qse init template_name --remove-deps
 ```
 
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/6ad96031-ff06-469f-8ec0-319d812558fa" width="800px"/>
+   <img src="https://github.com/user-attachments/assets/88619fba-ebcb-4a27-bc10-688f4edf1861" width="800px"/>
 </div>
 
 ### Customize the Generated Server App Name
