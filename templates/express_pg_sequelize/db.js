@@ -6,7 +6,7 @@ const sequelize = new Sequelize(
     appConfig.dbConfig.database,
     appConfig.dbConfig.username,
     appConfig.dbConfig.password,
-    appConfig.dbConfig.options
+    appConfig.dbConfig.options,
 );
 
 // Export the Sequelize instance

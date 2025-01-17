@@ -19,6 +19,11 @@ export async function initMenu(initCommand) {
         default: "qse-server",
     });
 
+    const addDockerCompose = await confirm({
+        message: "Do you want to generate a Docker Compose file? (default: No)",
+        default: false,
+    });
+
     const needNodemon = await confirm({
         message: "Do you want nodemon hot-reload support? (default: Yes)",
         default: true,
@@ -35,6 +40,7 @@ export async function initMenu(initCommand) {
         name: packageName,
         removeNodemon: !needNodemon,
         removeDeps: !installDeps,
+        dockerCompose: addDockerCompose,
     };
 
     console.log();

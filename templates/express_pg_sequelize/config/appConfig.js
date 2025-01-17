@@ -9,5 +9,5 @@ export const appConfig = {
             dialect: process.env.DB || "mysql",
             multipleStatements: true,
         },
-    }
+    },
 };

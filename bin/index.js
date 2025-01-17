@@ -120,6 +120,7 @@ async function initCommand(options) {
     const packageName = options.name || "qse-server"; // Default to 'qse-server' if no name is specified
     const removeNodemon = options.removeNodemon;
     const removeDependencies = options.removeDeps;
+    const dockerCompose = options.dockerCompose;
 
     if (!options.template) {
         initMenu(initCommand);
@@ -184,7 +185,7 @@ async function initCommand(options) {
     const destinationPath = path.join(targetDir);
     const dockerFileDestination = path.join(destinationPath, "Dockerfile");
 
-    if (options.dockerCompose) {
+    if (dockerCompose) {
         try {
             const serviceData = await getServicesData(
                 packageName,
@@ -198,7 +199,7 @@ async function initCommand(options) {
             const composeFileContent = generateDockerComposeFile(
                 serviceData,
                 packageName,
-                selectedTemplate
+                selectedTemplate,
             );
             const composeFilePath = path.join(targetDir, "docker-compose.yml");
 
@@ -218,7 +219,7 @@ async function initCommand(options) {
     const copySpinner = createSpinner("Creating server files...").start();
     try {
         await fs.copy(templatePath, destinationPath);
-        if (options.dockerCompose) {
+        if (dockerCompose) {
             try {
                 await fs.copyFile(dockerTemplatePath, dockerFileDestination);
             } catch (error) {
@@ -326,7 +327,7 @@ async function initCommand(options) {
             chalk.white.bold("npm run dev"),
         );
     }
-    if (options.dockerCompose) {
+    if (dockerCompose) {
         console.log(
             chalk.yellow("To start your services with Docker Compose:"),
             chalk.white.bold("docker compose up -d"),

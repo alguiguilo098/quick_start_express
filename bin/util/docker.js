@@ -69,7 +69,7 @@ export async function getServicesData(packageName, selectedTemplate) {
 
     // Cache service configuration
     const addCacheService = await confirm({
-        message: "Do you want to add a cache service?",
+        message: "Do you want to add a cache service? (Default: No)",
         default: false,
     });
 
@@ -83,7 +83,11 @@ export async function getServicesData(packageName, selectedTemplate) {
 }
 
 // Generates the File content for docker-compose.yml using the services data
-export function generateDockerComposeFile(services, packageName, selectedTemplate) {
+export function generateDockerComposeFile(
+    services,
+    packageName,
+    selectedTemplate,
+) {
     const templateData = templates[selectedTemplate];
     const compose = {
         version: "3.8",
@@ -102,20 +106,19 @@ export function generateDockerComposeFile(services, packageName, selectedTemplat
         // service.build is enabled only for app server.
         if (service.build) {
             serviceConfig.build = { context: "." };
-            if(templateData.isUrl === false){
+            if (templateData.isUrl === false) {
                 serviceConfig.environment = { DB_HOST: "host.docker.internal" };
             }
             appServiceName = service.name;
         } else {
             serviceConfig.image = service.image;
             if (service.name.endsWith("_db")) {
-                if(templateData.dbName === "Postgres"){
+                if (templateData.dbName === "Postgres") {
                     serviceConfig.environment = {
                         POSTGRES_PASSWORD: "${DB_PASSWORD}",
                         POSTGRES_DATABASE: "${DB_NAME}",
                     };
-                }
-                else if(templateData.dbName === "MySQL") {
+                } else if (templateData.dbName === "MySQL") {
                     serviceConfig.environment = {
                         MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}",
                         MYSQL_DATABASE: "${DB_NAME}",
@@ -139,32 +142,32 @@ export function generateDockerComposeFile(services, packageName, selectedTemplat
 name: ${packageName}
 services:
 ${Object.entries(compose.services)
-        .map(([name, config]) => {
-            const build = config.build
-                ? `      build:\n        context: ${config.build.context}`
-                : `      image: ${config.image}`;
-            const ports = config.ports
-                ? `      ports:\n${config.ports
-                    .map((port) => `        - "${port}"`)
-                    .join("\n")}`
-                : "";
-            const envFile = config.env_file
-                ? `      env_file:\n${config.env_file
-                    .map((file) => `        - ${file}`)
-                    .join("\n")}`
-                : "";
-            const dependsOn = config.depends_on
-                ? `      depends_on:\n${config.depends_on
-                    .map((dep) => `        - ${dep}`)
-                    .join("\n")}`
-                : "";
-            const environment = config.environment
-                ? `      environment:\n${Object.entries(config.environment)
-                    .map(([key, value]) => `        ${key}: ${value}`)
-                    .join("\n")}`
-                : "";
+    .map(([name, config]) => {
+        const build = config.build
+            ? `      build:\n        context: ${config.build.context}`
+            : `      image: ${config.image}`;
+        const ports = config.ports
+            ? `      ports:\n${config.ports
+                  .map((port) => `        - "${port}"`)
+                  .join("\n")}`
+            : "";
+        const envFile = config.env_file
+            ? `      env_file:\n${config.env_file
+                  .map((file) => `        - ${file}`)
+                  .join("\n")}`
+            : "";
+        const dependsOn = config.depends_on
+            ? `      depends_on:\n${config.depends_on
+                  .map((dep) => `        - ${dep}`)
+                  .join("\n")}`
+            : "";
+        const environment = config.environment
+            ? `      environment:\n${Object.entries(config.environment)
+                  .map(([key, value]) => `        ${key}: ${value}`)
+                  .join("\n")}`
+            : "";
 
-            return `  ${name}:
+        return `  ${name}:
 ${build}
       container_name: ${config.container_name}
 ${ports}
@@ -172,8 +175,8 @@ ${envFile}
 ${environment}
 ${dependsOn}
       restart: ${config.restart}`;
-        })
-        .join("\n\n")}`;
+    })
+    .join("\n\n")}`;
 
     return yaml.trim();
 }
