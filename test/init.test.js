@@ -595,3 +595,5 @@ describe("init without nodemon option without installing deps.", () => {
         }
     }, 20000);
 });
+
+// TODO: Add tests for docker-compose.
