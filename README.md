@@ -59,7 +59,7 @@ Select a template
    <img src="https://github.com/user-attachments/assets/08f2cf16-0de5-456a-8fc3-00ca295ff142" width="800px"/>
 </div>
 
-Customize Name, Answer a few questions to customize your template
+Answer a few questions to customize your template
 
 <div align="center">
    <img src="https://github.com/user-attachments/assets/b0278466-022b-469b-83ef-5f692f2b1bd9" width="800px"/>
