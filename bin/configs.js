@@ -51,41 +51,53 @@ export const commands = {
 export const templates = {
     basic: {
         name: "basic",
+        isUrl: false,
         serverPort: "8080:8080",
     },
     basic_ts: {
         name: "basic_ts",
+        isUrl: false,
         serverPort: "8080:8080",
     },
     express_pg: {
         name: "express_pg",
+        isUrl: false,
         dbPort: "5432:5432",
+        dbName: "Postgres",
         serverPort: "8080:8080",
         dbDockerImage: "postgres:latest",
     },
     express_pg_sequelize: {
         name: "express_pg_sequelize",
+        isUrl: false,
         dbPort: "5432:5432",
+        dbName: "Postgres",
         serverPort: "8080:8080",
         dbDockerImage: "postgres:latest",
     },
     express_mysql: {
         name: "express_mysql",
+        isUrl: false,
         dbPort: "3306:3306",
+        dbName: "MySQL",
         serverPort: "8080:8080",
         dbDockerImage: "mysql:latest",
     },
     express_pg_prisma: {
         name: "express_pg_prisma",
+        isUrl: true,
         dbPort: "5432:5432",
+        dbName: "Postgres",
         serverPort: "8080:8080",
         dbDockerImage: "postgres:latest",
     },
     express_oauth_microsoft: {
+        isUrl: false,
         name: "express_oauth_microsoft",
         serverPort: "8080:8080",
     },
     express_oauth_google: {
+        isUrl: false,
         name: "express_oauth_google",
         serverPort: "8080:8080",
     },

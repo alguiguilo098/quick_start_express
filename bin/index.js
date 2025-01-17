@@ -192,6 +192,7 @@ async function initCommand(options) {
             const composeFileContent = generateDockerComposeFile(
                 serviceData,
                 packageName,
+                selectedTemplate
             );
             const composeFilePath = path.join(targetDir, "docker-compose.yml");
 

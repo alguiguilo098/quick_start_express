@@ -2,8 +2,9 @@ import express from "express";
 import db from "./db.js";
 import "dotenv/config.js";
 
+import { appConfig } from "./config/appConfig.js";
+
 const app = express();
-const PORT = process.env.SERVER_PORT || 8080;
 
 app.use(express.json());
 
@@ -35,6 +36,6 @@ app.get("/db-test", async (req, res) => {
 });
 
 // Start the server
-app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(appConfig.PORT, () => {
+    console.log(`Server is running on http://localhost:${appConfig.PORT}`);
 });
