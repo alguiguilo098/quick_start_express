@@ -3,6 +3,8 @@ import { templates } from "../configs.js";
 
 // `initMenu` function is used to prompt the user for input when the `init` command is run.
 export async function initMenu(initCommand) {
+    console.log()
+
     const selectedTemplate = await select({
         message: "Select a template to use (default: basic)",
         choices: Object.values(templates).map((template) => ({
@@ -34,6 +36,8 @@ export async function initMenu(initCommand) {
         removeNodemon: !needNodemon,
         removeDeps: !installDeps,
     };
+
+    console.log();
 
     initCommand(options);
 }
