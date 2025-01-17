@@ -10,6 +10,7 @@ import chalk from "chalk";
 import { createSpinner } from "nanospinner";
 import { metadata, commands, templates } from "./configs.js";
 import validate from "validate-npm-package-name";
+import { initMenu } from "./util/menu.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -111,9 +112,14 @@ program
 
 async function initCommand(options) {
     const selectedTemplate = options.template || "basic"; // Default to 'basic' if no template is specified
-    const packageName = options.name || "quick-start-express-server"; // Default to 'quick-start-express-server' if no name is specified
+    const packageName = options.name || "qse-server"; // Default to 'qse-server' if no name is specified
     const removeNodemon = options.removeNodemon;
     const removeDependencies = options.removeDeps;
+
+    if (!options.template) {
+        initMenu(initCommand);
+        return;
+    }
 
     if (packageName) {
         const validateResult = validate(packageName);
