@@ -1,5 +1,5 @@
 {
-    "name": "express_pg",
+    "name": "express_pg_sequelize",
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
