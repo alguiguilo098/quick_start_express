@@ -8,7 +8,7 @@ WORKDIR /app
 COPY package.json ./
 
 # Install dependencies, including nodemon for development.
-RUN npm install nodemon --save-dev && npm install
+RUN npm install nodemon && npm install
 
 # Copy the application code to the container.
 COPY . .
