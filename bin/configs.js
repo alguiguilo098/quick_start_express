@@ -4,7 +4,8 @@ export const metadata = {
     version: "v1.0.6-beta",
     description:
         "A simple CLI tool to generate Express servers from multiple available templates.",
-    oneLineDescription: "A simple Express.js server generator CLI tool.",
+    oneLineDescription:
+        "Welcome to QSE: A simple Express.js server generator CLI tool.",
 };
 
 export const commands = {
