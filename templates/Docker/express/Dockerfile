@@ -18,4 +18,4 @@ COPY . .
 EXPOSE 8080
 
 # Command to start the application - Customizable.
-CMD ["npm", "start"]
+ENTRYPOINT ["npm", "start"]
