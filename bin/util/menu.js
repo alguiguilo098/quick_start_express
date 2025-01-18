@@ -20,8 +20,8 @@ export async function initMenu(initCommand) {
     });
 
     const addDockerCompose = await confirm({
-        message: "Do you want to generate a Docker Compose file? (default: No)",
-        default: false,
+        message: "Do you want to generate a Docker Compose file? (default: Yes)",
+        default: true,
     });
 
     const needNodemon = await confirm({
