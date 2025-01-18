@@ -148,34 +148,35 @@ export function generateDockerComposeFile(
 name: ${packageName}
 services:
 ${Object.entries(compose.services)
-        .map(([name, config]) => {
-            const build = config.build
-                ? `      build:\n        context: ${config.build.context}`
-                : `      image: ${config.image}`;
-            const ports = config.ports
-                ? `      ports:\n${config.ports
-                    .map((port) => `        - "${port}"`)
-                    .join("\n")}`
-                : "";
-            const envFile = config.env_file
-                ? `      env_file:\n${config.env_file
-                    .map((file) => `        - ${file}`)
-                    .join("\n")}`
-                : "";
-            const dependsOn = config.depends_on
-                ? `      depends_on:\n${config.depends_on
-                    .map((dep) => `        - ${dep}`)
-                    .join("\n")}`
-                : "";
-            const environment = config.environment
-                ? `      environment:\n${Object.entries(config.environment)
-                    .map(([key, value]) => `        ${key}: ${value}`)
-                    .join("\n")}`
-                : "";
-            const volumes = (config.volumes && templateData.needDB)
+    .map(([name, config]) => {
+        const build = config.build
+            ? `      build:\n        context: ${config.build.context}`
+            : `      image: ${config.image}`;
+        const ports = config.ports
+            ? `      ports:\n${config.ports
+                  .map((port) => `        - "${port}"`)
+                  .join("\n")}`
+            : "";
+        const envFile = config.env_file
+            ? `      env_file:\n${config.env_file
+                  .map((file) => `        - ${file}`)
+                  .join("\n")}`
+            : "";
+        const dependsOn = config.depends_on
+            ? `      depends_on:\n${config.depends_on
+                  .map((dep) => `        - ${dep}`)
+                  .join("\n")}`
+            : "";
+        const environment = config.environment
+            ? `      environment:\n${Object.entries(config.environment)
+                  .map(([key, value]) => `        ${key}: ${value}`)
+                  .join("\n")}`
+            : "";
+        const volumes =
+            config.volumes && templateData.needDB
                 ? `      volumes:\n${config.volumes
-                    .map((volume) => `        - ${volume}`)
-                    .join("\n")}`
+                      .map((volume) => `        - ${volume}`)
+                      .join("\n")}`
                 : "";
 
         return `  ${name}:
@@ -187,11 +188,15 @@ ${environment}
 ${volumes}
 ${dependsOn}
       restart: ${config.restart}`;
-        })
-        .join("\n\n")}
-${templateData.needDB ? `\nvolumes:\n${Object.keys(compose.volumes)
-        .map((volume) => `  ${volume}:`)
-        .join("\n")}` : ""}`;
+    })
+    .join("\n\n")}
+${
+    templateData.needDB
+        ? `\nvolumes:\n${Object.keys(compose.volumes)
+              .map((volume) => `  ${volume}:`)
+              .join("\n")}`
+        : ""
+}`;
 
     return yaml.trim();
 }
