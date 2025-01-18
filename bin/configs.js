@@ -49,20 +49,33 @@ export const commands = {
     },
 };
 
+/**
+ * Template Properties:
+ * - name (string): Unique identifier for the template.
+ * - isUrl (boolean): Indicates whether the template requires URL-based DB_HOST.
+ * - needDB (boolean): Specifies if the template included a database service.
+ * - dbPort (string): The port mapping for the database service in "host:container" format.
+ * - dbName (string): Type of database used in the temaplate (e.g., "Postgres", "MySQL").
+ * - serverPort (string): Port mapping for the application server in "host:container" format.
+ * - dbDockerImage (string): Docker image to use for the database service. 
+**/
 export const templates = {
     basic: {
         name: "basic",
         isUrl: false,
+        needDB: false,
         serverPort: "8080:8080",
     },
     basic_ts: {
         name: "basic_ts",
         isUrl: false,
+        needDB: false,
         serverPort: "8080:8080",
     },
     express_pg: {
         name: "express_pg",
         isUrl: false,
+        needDB: true,
         dbPort: "5432:5432",
         dbName: "Postgres",
         serverPort: "8080:8080",
@@ -71,6 +84,7 @@ export const templates = {
     express_pg_sequelize: {
         name: "express_pg_sequelize",
         isUrl: false,
+        needDB: true,
         dbPort: "5432:5432",
         dbName: "Postgres",
         serverPort: "8080:8080",
@@ -79,6 +93,7 @@ export const templates = {
     express_mysql: {
         name: "express_mysql",
         isUrl: false,
+        needDB: true,
         dbPort: "3306:3306",
         dbName: "MySQL",
         serverPort: "8080:8080",
@@ -87,6 +102,7 @@ export const templates = {
     express_pg_prisma: {
         name: "express_pg_prisma",
         isUrl: true,
+        needDB: true,
         dbPort: "5432:5432",
         dbName: "Postgres",
         serverPort: "8080:8080",
@@ -94,11 +110,13 @@ export const templates = {
     },
     express_oauth_microsoft: {
         isUrl: false,
+        needDB: false,
         name: "express_oauth_microsoft",
         serverPort: "8080:8080",
     },
     express_oauth_google: {
         isUrl: false,
+        needDB: false,
         name: "express_oauth_google",
         serverPort: "8080:8080",
     },
