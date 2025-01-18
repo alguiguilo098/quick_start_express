@@ -121,6 +121,8 @@ async function initCommand(options) {
     const removeNodemon = options.removeNodemon;
     const removeDependencies = options.removeDeps;
     const dockerCompose = options.dockerCompose;
+    const isUrl = templates[selectedTemplate].isUrl;
+    const needDB = templates[selectedTemplate].needDB;
 
     if (!options.template) {
         initMenu(initCommand);
@@ -329,6 +331,17 @@ async function initCommand(options) {
         console.log(
             chalk.yellow("To start your services with Docker Compose:"),
             chalk.white.bold("docker compose up -d"),
+        );
+    }
+
+    if(isUrl === true && needDB === true) {
+        console.log(
+            chalk.yellow("Note:"),
+            chalk.white("Use"),
+            chalk.white.bold("docker.internal.host"),
+            chalk.white("instead of"),
+            chalk.white.bold("localhost"),
+            chalk.white("in Database Connection URL."),
         );
     }
 }
