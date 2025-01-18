@@ -20,7 +20,8 @@ export async function initMenu(initCommand) {
     });
 
     const addDockerCompose = await confirm({
-        message: "Do you want to generate a Docker Compose file? (default: Yes)",
+        message:
+            "Do you want to generate a Docker Compose file? (default: Yes)",
         default: true,
     });
 

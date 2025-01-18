@@ -46,7 +46,7 @@ export async function getServicesData(packageName, selectedTemplate) {
     const templateData = templates[selectedTemplate];
     const services = [];
 
-    console.log(chalk.bold(chalk.green("\nDocker Compose Configuration")));
+    console.log(chalk.bold(chalk.green("Docker Compose Configuration")));
 
     // App service configuration.
     const appService = {
@@ -126,7 +126,9 @@ export function generateDockerComposeFile(
                     };
                 }
                 const volumeName = `${service.name}_data`;
-                serviceConfig.volumes = [`${volumeName}:/var/lib/${templateData.dbName.toLowerCase()}`];
+                serviceConfig.volumes = [
+                    `${volumeName}:/var/lib/${templateData.dbName.toLowerCase()}`,
+                ];
                 compose.volumes[volumeName] = {};
             }
         }
@@ -146,37 +148,37 @@ export function generateDockerComposeFile(
 name: ${packageName}
 services:
 ${Object.entries(compose.services)
-        .map(([name, config]) => {
-            const build = config.build
-                ? `      build:\n        context: ${config.build.context}`
-                : `      image: ${config.image}`;
-            const ports = config.ports
-                ? `      ports:\n${config.ports
-                    .map((port) => `        - "${port}"`)
-                    .join("\n")}`
-                : "";
-            const envFile = config.env_file
-                ? `      env_file:\n${config.env_file
-                    .map((file) => `        - ${file}`)
-                    .join("\n")}`
-                : "";
-            const dependsOn = config.depends_on
-                ? `      depends_on:\n${config.depends_on
-                    .map((dep) => `        - ${dep}`)
-                    .join("\n")}`
-                : "";
-            const environment = config.environment
-                ? `      environment:\n${Object.entries(config.environment)
-                    .map(([key, value]) => `        ${key}: ${value}`)
-                    .join("\n")}`
-                : "";
-            const volumes = config.volumes
-                ? `      volumes:\n${config.volumes
-                    .map((volume) => `        - ${volume}`)
-                    .join("\n")}`
-                : "";
+    .map(([name, config]) => {
+        const build = config.build
+            ? `      build:\n        context: ${config.build.context}`
+            : `      image: ${config.image}`;
+        const ports = config.ports
+            ? `      ports:\n${config.ports
+                  .map((port) => `        - "${port}"`)
+                  .join("\n")}`
+            : "";
+        const envFile = config.env_file
+            ? `      env_file:\n${config.env_file
+                  .map((file) => `        - ${file}`)
+                  .join("\n")}`
+            : "";
+        const dependsOn = config.depends_on
+            ? `      depends_on:\n${config.depends_on
+                  .map((dep) => `        - ${dep}`)
+                  .join("\n")}`
+            : "";
+        const environment = config.environment
+            ? `      environment:\n${Object.entries(config.environment)
+                  .map(([key, value]) => `        ${key}: ${value}`)
+                  .join("\n")}`
+            : "";
+        const volumes = config.volumes
+            ? `      volumes:\n${config.volumes
+                  .map((volume) => `        - ${volume}`)
+                  .join("\n")}`
+            : "";
 
-            return `  ${name}:
+        return `  ${name}:
 ${build}
       container_name: ${config.container_name}
 ${ports}
@@ -185,12 +187,12 @@ ${environment}
 ${volumes}
 ${dependsOn}
       restart: ${config.restart}`;
-        })
-        .join("\n\n")}
+    })
+    .join("\n\n")}
 \nvolumes:
 ${Object.keys(compose.volumes)
-        .map((volume) => `  ${volume}:`)
-        .join("\n")}`;
+    .map((volume) => `  ${volume}:`)
+    .join("\n")}`;
 
     return yaml.trim();
 }
