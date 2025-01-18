@@ -11,6 +11,7 @@ import { createSpinner } from "nanospinner";
 import { metadata, commands, templates } from "./configs.js";
 import validate from "validate-npm-package-name";
 import { initMenu } from "./util/menu.js";
+import { confirm } from "@inquirer/prompts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -82,31 +83,42 @@ program
 program
     .command(commands.clear.command)
     .description(commands.clear.description)
-    .action(() => {
+    .action(async () => {
         const targetDir = process.cwd();
-        console.log("Clearing Directory...", chalk.bgRed.white(targetDir));
-        const clearingDirectory = createSpinner(
-            "Deleting All Files...",
-        ).start();
-        try {
-            // Read the directory.
-            const files = fs.readdirSync(targetDir);
+        console.log(`You are about to delete all files in ${chalk.bgRed.white(targetDir)}.`)
+        const clearConfirmation = await confirm({
+            message:
+                `Are you sure you want to proceed? (default: No)`,
+            default: false,
+        });
 
-            for (const file of files) {
-                const filePath = path.join(targetDir, file);
-                // if (file !== '.' && file !== '..') {
-                fs.removeSync(filePath);
-                // }
-            }
-
-            clearingDirectory.success({
-                text: "Successfully cleared project directory.",
-            });
-        } catch (error) {
-            clearingDirectory.error({
-                text: "Error clearing project directory",
-            });
-            console.error(error);
+        if (clearConfirmation) {
+            console.log("Clearing Directory...");
+            const clearingDirectory = createSpinner(
+                "Deleting All Files...",
+            ).start();
+            try {
+                // Read the directory.
+                const files = fs.readdirSync(targetDir);
+    
+                for (const file of files) {
+                    const filePath = path.join(targetDir, file);
+                    // if (file !== '.' && file !== '..') {
+                    fs.removeSync(filePath);
+                    // }
+                }
+    
+                clearingDirectory.success({
+                    text: "Successfully cleared project directory.",
+                });
+            } catch (error) {
+                clearingDirectory.error({
+                    text: "Error clearing project directory",
+                });
+                console.error(error);
+            } 
+        } else {
+            console.log("Operation Cancelled.");
         }
     });
 
