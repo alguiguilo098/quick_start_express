@@ -57,8 +57,8 @@ export const commands = {
  * - dbPort (string): The port mapping for the database service in "host:container" format.
  * - dbName (string): Type of database used in the temaplate (e.g., "Postgres", "MySQL").
  * - serverPort (string): Port mapping for the application server in "host:container" format.
- * - dbDockerImage (string): Docker image to use for the database service. 
-**/
+ * - dbDockerImage (string): Docker image to use for the database service.
+ **/
 export const templates = {
     basic: {
         name: "basic",

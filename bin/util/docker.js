@@ -46,7 +46,7 @@ export async function getServicesData(packageName, selectedTemplate) {
     const templateData = templates[selectedTemplate];
     const services = [];
 
-    console.log(chalk.bold(chalk.green("\nDocker Compose Configuration")));
+    console.log(chalk.bold(chalk.green("Docker Compose Configuration")));
 
     // App service configuration.
     const appService = {
@@ -126,7 +126,9 @@ export function generateDockerComposeFile(
                     };
                 }
                 const volumeName = `${service.name}_data`;
-                serviceConfig.volumes = [`${volumeName}:/var/lib/${templateData.dbName.toLowerCase()}`];
+                serviceConfig.volumes = [
+                    `${volumeName}:/var/lib/${templateData.dbName.toLowerCase()}`,
+                ];
                 compose.volumes[volumeName] = {};
             }
         }
@@ -176,7 +178,7 @@ ${Object.entries(compose.services)
                     .join("\n")}`
                 : "";
 
-            return `  ${name}:
+        return `  ${name}:
 ${build}
       container_name: ${config.container_name}
 ${ports}
