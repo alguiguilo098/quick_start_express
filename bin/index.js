@@ -335,14 +335,16 @@ async function initCommand(options) {
         );
     }
 
-    if(isUrl === true && needDB === true) {
+    if (dockerCompose && isUrl === true && needDB === true) {
         console.log(
-            chalk.yellow("Note:"),
+            chalk.yellow("Important Note:"),
             chalk.white("Use"),
-            chalk.white.bold("docker.internal.host"),
+            chalk.blueBright.bold("host.docker.internal"),
             chalk.white("instead of"),
-            chalk.white.bold("localhost"),
-            chalk.white("in Database Connection URL."),
+            chalk.blueBright.bold("localhost"),
+            chalk.white("in your Database Connection URL in the"),
+            chalk.blueBright.bold(".env"),
+            chalk.white("file for Docker to work correctly."),
         );
     }
 }
