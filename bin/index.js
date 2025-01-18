@@ -121,8 +121,6 @@ async function initCommand(options) {
     const removeNodemon = options.removeNodemon;
     const removeDependencies = options.removeDeps;
     const dockerCompose = options.dockerCompose;
-    const isUrl = templates[selectedTemplate].isUrl;
-    const needDB = templates[selectedTemplate].needDB;
 
     if (!options.template) {
         initMenu(initCommand);
@@ -163,6 +161,9 @@ async function initCommand(options) {
         "templates",
         templates[selectedTemplate].name,
     );
+
+    const isUrl = templates[selectedTemplate].isUrl;
+    const needDB = templates[selectedTemplate].needDB;
 
     let dockerTemplate =
         selectedTemplate.split("_")[0] === "express" ||
