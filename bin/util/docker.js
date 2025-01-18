@@ -107,7 +107,7 @@ export function generateDockerComposeFile(
         // service.build is enabled only for app server.
         if (service.build) {
             serviceConfig.build = { context: "." };
-            if (templateData.isUrl === false) {
+            if (templateData.isUrl === false && templateData.needDB === true) {
                 serviceConfig.environment = { DB_HOST: "host.docker.internal" };
             }
             appServiceName = service.name;
@@ -170,7 +170,7 @@ ${Object.entries(compose.services)
                     .map(([key, value]) => `        ${key}: ${value}`)
                     .join("\n")}`
                 : "";
-            const volumes = config.volumes
+            const volumes = (config.volumes && templateData.needDB)
                 ? `      volumes:\n${config.volumes
                     .map((volume) => `        - ${volume}`)
                     .join("\n")}`
@@ -187,10 +187,9 @@ ${dependsOn}
       restart: ${config.restart}`;
         })
         .join("\n\n")}
-\nvolumes:
-${Object.keys(compose.volumes)
+${templateData.needDB ? `\nvolumes:\n${Object.keys(compose.volumes)
         .map((volume) => `  ${volume}:`)
-        .join("\n")}`;
+        .join("\n")}` : ""}`;
 
     return yaml.trim();
 }
