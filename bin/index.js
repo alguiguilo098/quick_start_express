@@ -155,8 +155,6 @@ async function initCommand(options) {
         return;
     }
 
-    console.log("Starting server initialization...");
-
     const targetDir = process.cwd();
     const templatePath = path.join(
         parentDir,
@@ -188,6 +186,8 @@ async function initCommand(options) {
                 selectedTemplate,
             );
 
+            console.log("Starting server initialization...");
+
             const dockerSpinner = createSpinner(
                 `Creating Docker Compose File with Entered Services...`,
             ).start();
@@ -210,6 +210,8 @@ async function initCommand(options) {
             );
             return;
         }
+    } else {
+        console.log("Starting server initialization...");
     }
 
     const copySpinner = createSpinner("Creating server files...").start();
