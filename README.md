@@ -83,6 +83,18 @@ qse init -t template_name
    <img src="https://github.com/user-attachments/assets/84e2fc79-9b88-4817-baf4-56845d5ee756" width="800px"/>
 </div>
 
+### Initialize with a Docker Compose file and Dockerfile.
+
+```bash
+qse init -t template_name --docker-compose
+```
+
+### Output
+
+<div align="center">
+   <img src="https://github.com/user-attachments/assets/e9147722-5b7f-4add-a321-7089e016e125" width="800px"/>
+</div>
+
 ### Initialize without nodemon.
 
 ```bash
