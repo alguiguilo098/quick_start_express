@@ -90,40 +90,54 @@ program
     .description(commands.clear.description)
     .action(async () => {
         const targetDir = process.cwd();
-        console.log(`You are about to delete all files in ${chalk.bgRed.white(targetDir)}.`)
+        console.log(
+            chalk.yellow.bold("\nWARNING: This operation is irreversible."),
+        );
+        console.log(
+            chalk.white("You are about to delete all files in the directory:"),
+            chalk.red.bold(targetDir),
+            "\n",
+        );
+
         const clearConfirmation = await confirm({
-            message:
-                `Are you sure you want to proceed? (default: No)`,
+            message: "Are you sure you want to proceed? (Default: No)",
             default: false,
         });
 
         if (clearConfirmation) {
-            console.log("Clearing Directory...");
             const clearingDirectory = createSpinner(
-                "Deleting All Files...",
+                "Scanning project directory...",
             ).start();
             try {
-                // Read the directory.
                 const files = fs.readdirSync(targetDir);
-    
+
+                clearingDirectory.update({
+                    text: "Deleting all files...",
+                });
+
                 for (const file of files) {
                     const filePath = path.join(targetDir, file);
-                    // if (file !== '.' && file !== '..') {
                     fs.removeSync(filePath);
-                    // }
                 }
-    
+
                 clearingDirectory.success({
-                    text: "Successfully cleared project directory.",
+                    text: chalk.green.bold(
+                        "Successfully cleared project directory.",
+                    ),
                 });
             } catch (error) {
                 clearingDirectory.error({
-                    text: "Error clearing project directory",
+                    text: chalk.red.bold("Error clearing project directory."),
                 });
                 console.error(error);
-            } 
+            }
         } else {
-            console.log("Operation Cancelled.");
+            const cancelSpinner = createSpinner(
+                "Cancelling operation...",
+            ).start();
+            cancelSpinner.success({
+                text: chalk.white("Operation cancelled successfully."),
+            });
         }
     });
 
