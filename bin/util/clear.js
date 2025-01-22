@@ -4,6 +4,7 @@ import chalk from "chalk";
 import { createSpinner } from "nanospinner";
 import { confirm } from "@inquirer/prompts";
 
+// clearCWD deletes all files and folders the current working directory.
 export async function clearCWD() {
     const targetDir = process.cwd();
     console.log(
@@ -48,9 +49,7 @@ export async function clearCWD() {
             console.error(error);
         }
     } else {
-        const cancelSpinner = createSpinner(
-            "Cancelling operation...",
-        ).start();
+        const cancelSpinner = createSpinner("Cancelling operation...").start();
         cancelSpinner.success({
             text: chalk.white("Operation cancelled successfully."),
         });
