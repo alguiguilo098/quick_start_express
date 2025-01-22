@@ -146,7 +146,7 @@ qse clear
 ### Output
 
 <div align="center">
-   <img src="https://github.com/user-attachments/assets/f886fc9f-7378-4904-8177-e7c0842becb6" width=600px"/>
+   <img src="https://github.com/user-attachments/assets/74d61468-5bc9-42bf-8ecb-9cb435ac2a9b" width=600px"/>
 </div>
 
 <br>
