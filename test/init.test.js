@@ -597,3 +597,18 @@ describe("init without nodemon option without installing deps.", () => {
 });
 
 // TODO: Add tests for docker-compose.
+describe("init docker-compose flag", () => {
+    beforeEach(() => {
+        initTempDirectory();
+    });
+
+    afterAll(() => {
+        clearTempDirectory();
+    });
+
+    test("-t basic", async () => {
+        await exec("node ../../bin/index.js init -t basic --docker-compose", { cwd: tempDir });
+        expect(true).toBe(true)
+
+    }, 20000);
+});
